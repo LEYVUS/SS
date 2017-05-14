@@ -75,5 +75,12 @@ namespace SS.Componentes
         {
             return new CategoriaDTO(categoria.Id, categoria.Nombre);
         }
+
+        public static EstadoDTO TransferirEstado(Estado estado)
+        {
+            EstadoDTO estadoDTO = new EstadoDTO(estado.Id, estado.Tipo);
+
+            return estadoDTO;
+        }
     }
 }

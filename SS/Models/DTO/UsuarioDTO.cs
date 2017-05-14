@@ -30,9 +30,17 @@ namespace SS.Models.DTO
             Rol = rol;
         }
 
+        public UsuarioDTO(string correo, string contrasenia)
+        {
+            Correo = correo;
+            Contrasenia = contrasenia;
+        }
+
         public int Id { get; set; }
 
         public string Correo { get; set; }
+
+        public string Contrasenia { get; set; }
 
         public RolDTO Rol { get; set; }
 
@@ -40,9 +48,8 @@ namespace SS.Models.DTO
 
         public string Apellido { get; set; }
 
-        public string Contrasenia { get; set; }
-
         public int Numero_Empleado { get; set; }
+
 
 
     }

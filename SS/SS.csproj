@@ -151,7 +151,12 @@
     <Compile Include="Componentes\MensajeComponente.cs" />
     <Compile Include="Componentes\TransferirDTO.cs" />
     <Compile Include="Componentes\TransferirEntidad.cs" />
-    <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\CarreraController.cs" />
+    <Compile Include="Controllers\EstadoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\SolicitudController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,8 +214,10 @@
     <Compile Include="Repositorios\Interfaces\IUsuarioRepositorio.cs" />
     <Compile Include="Repositorios\Interfaces\IUsuarioUABCRepositorio.cs" />
     <Compile Include="Repositorios\Interfaces\IValidacionRepositorio.cs" />
+    <Compile Include="Repositorios\Predicados\SolicitudPredicado.cs" />
     <Compile Include="Servicios\CarreraServicio.cs" />
     <Compile Include="Servicios\CategoriaServicio.cs" />
+    <Compile Include="Servicios\EstadoServicio.cs" />
     <Compile Include="Servicios\RolServicio.cs" />
     <Compile Include="Servicios\SesionServicio.cs" />
     <Compile Include="Servicios\SolicitudServicio.cs" />

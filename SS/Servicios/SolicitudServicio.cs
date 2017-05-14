@@ -20,6 +20,17 @@ namespace SS.Servicios
             solicitudRepositorio = new SolicitudRepositorioImpl(new EntidadesSS());
         }
 
+        public List<SolicitudDTO> BuscarSolicitudesPorRols(UsuarioDTO usuario)
+        {
+            List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
+            List<Solicitud> solicitudes = solicitudRepositorio.BuscarSolicitudPorRol(TransferirEntidad.TransferirDatosUsuarioDTO(usuario)).ToList();
+            foreach (Solicitud solicitud in solicitudes)
+            {
+                solicitudesDTO.Add(TransferirDTO.TransferirSolicitud(solicitud));
+            }
+
+            return solicitudesDTO;
+        }
 
         public MensajeDTO Agregar(SolicitudDTO solicitudDTO)
         {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using SS.Models.DTO;
+using SS.Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,10 @@ namespace SS
 {
     public class MyAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+
+        private SesionServicio sesionServicio = new SesionServicio();
+          
+
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -17,23 +23,37 @@ namespace SS
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            if (context.UserName == "admin" && context.Password == "admin")
+
+            MensajeDTO mensaje= sesionServicio.InicioSesion(new UsuarioDTO(context.UserName, context.Password));
+           
+
+            if (mensaje.Respuesta["Entidad"] != null)
             {
-                identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
-                identity.AddClaim(new Claim("username", "admin"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "Daniel Ballesteros"));
-                context.Validated(identity);
+                UsuarioDTO usuario = (UsuarioDTO)mensaje.Respuesta["Entidad"];
+
+                if(usuario.Rol != null)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Rol.Nombre));
+                    identity.AddClaim(new Claim(context.UserName, context.Password));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Nombre));
+                    context.Validated(identity);
+                }
+
+                else
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "Docente"));
+                    identity.AddClaim(new Claim(context.UserName, context.Password));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Nombre));
+                    context.Validated(identity);
+                }
+
+                
             }
-            else if (context.UserName == "user" && context.Password == "user")
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-                identity.AddClaim(new Claim("username", "user"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "Denial Alvarez"));
-                context.Validated(identity);
-            }
+            
             else
-                context.SetError("invalid_grant", "Provided username and password are incorrect");
+                context.SetError("invalid_grant", (string)mensaje.Respuesta["Mensaje"]);
             return;
         }
     }
