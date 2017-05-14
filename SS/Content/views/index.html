@@ -1,0 +1,30 @@
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-crypto/angular-crypto.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="../src/app-controller.js"></script>
+    <script type="text/javascript" src="../src/Controller/loginCtrl.js"></script>
+    <script type="text/javascript" src="../src/Controller/usuarioCtrl.js"></script>
+    <script type="text/javascript" src="../src/Controller/timeOutCtrl.js"></script>
+    <script type="text/javascript" src="../src/app.js"></script>
+    <script type="text/javascript" src="../src/Directive/templete-directive.js"></script>
+     <script type="text/javascript" src="../src/Service/crudService.js"></script>
+    <title>Sistema de Solicitudes de Salidas</title>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="logoutCtrl" ng-init="startTime()">
+        <div ng-mousemove="clearTime()">
+            <ng-view></ng-view>
+        </div>
+    </div>
+</body>
+
+</html>

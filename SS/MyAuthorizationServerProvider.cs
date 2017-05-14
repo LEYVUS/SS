@@ -37,7 +37,7 @@ namespace SS
                 {
                     identity.AddClaim(new Claim(ClaimTypes.Role, usuario.Rol.Nombre));
                     identity.AddClaim(new Claim(context.UserName, context.Password));
-                    identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Nombre));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
                     context.Validated(identity);
                 }
 
@@ -45,7 +45,7 @@ namespace SS
                 {
                     identity.AddClaim(new Claim(ClaimTypes.Role, "Docente"));
                     identity.AddClaim(new Claim(context.UserName, context.Password));
-                    identity.AddClaim(new Claim(ClaimTypes.Name, usuario.Nombre));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
                     context.Validated(identity);
                 }
 

@@ -1,0 +1,1 @@
+﻿app.constant('servicioURL', 'http://localhost:50073/');

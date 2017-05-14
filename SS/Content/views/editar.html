@@ -1,0 +1,39 @@
+
+<div class="modal fade" id="editar" data-backdrop="static" data-keyboard="false" >
+    <form name="myForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--Header de la ventana-->
+                    <button type="button" class="close" data-dismiss="modal" ng-click="finalizar()" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Editar datos </h3>
+                </div>
+                <div class="modal-body">
+                    <!--Contenido de la ventana-->
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico</label>
+                        <input type="email" class="form-control" name="correo" placeholder="usuario@uabc.edu.mx" ng-model="usuario.Correo" ng-pattern="regex.correo" required>
+                        <div ng-show="!myForm.correo.$valid" role="alert">
+                            <div class="alert alert-danger" ng-show="myForm.correo.$touched && myForm.correo.$error.required" ng-message="myForm.correo.$error.required">Este campo es obligatorio</div>
+                            <div class="alert alert-danger" ng-show="myForm.correo.$touched && myForm.correo.$error.pattern" ng-message="myForm.correo.$error.pattern">Este correo no pertenece a UABC</div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <label>Rol:</label>
+                        <input type="text" class="form-control input-sm" name="Rol"  ng-model="usuario.Rol.Nombre" ng-value="usuario.Rol.Nombre"  readonly required>
+                    <br />
+                    <div ng-show="mostrarCarreras(usuario.Rol)">
+                        <label>Carrera:</label>
+                        <input type="text"ng-init="ObtenerCarrera()" class="form-control input-sm" name="carrera"  ng-value="carrera.Nombre" required readonly>
+                    </div>
+                    </div>
+                <div class="modal-footer">
+                    <!--Footer de la ventana-->
+                    <button type="button" class="btn btn-primary" ng-click="close(usuario)" ng-disabled="!myForm.$valid">Guardar</button>
+                    <button type="button" class="btn btn-default"  ng-click="finalizar()" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

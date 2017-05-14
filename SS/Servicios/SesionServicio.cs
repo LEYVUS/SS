@@ -6,6 +6,7 @@ using SS.Repositorios.Implementaciones;
 using SS.Models.DTO;
 using SS.Models.Entidades.SS;
 using SS.Componentes;
+using System.Security.Claims;
 
 namespace SS.Servicios
 {
@@ -84,6 +85,17 @@ namespace SS.Servicios
             }
             
 
+        }
+
+        public UsuarioDTO getUsuarioLogeado(string correo)
+        {
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioRepositorioUABC.BuscarUsuarioUABC(correo);
+            Usuario usuario = usuarioRepositorioSS.BuscarPorCorreo(correo);
+            if(usuario != null)
+            {
+                return new UsuarioDTO(usuarioUABC.Nombre, correo,TransferirDTO.TransferirRol(usuario.Rol));
+            }
+                return new UsuarioDTO(usuarioUABC.Nombre,correo,null);
         }
 
     }

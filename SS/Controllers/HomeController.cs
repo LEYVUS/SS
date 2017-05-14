@@ -15,6 +15,7 @@ namespace SS.Controllers
        /// Muestra la pantalla Index
        /// </summary>
        /// <returns>Regresa la vista index</returns>
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();

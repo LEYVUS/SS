@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 1.5em;
+}
+
+.hide-close .ui-dialog-titlebar-close { display: none !important}
+/*    --------------------------------------------------
+    :: Header
+    -------------------------------------------------- */
+
+header {
+    color: #6d6d6d;
+    font-size: 40px;
+    text-align: center;
+   
+}
+
+header p {
+    margin-bottom: 0;
+}
+
+header div h1 {
+    color: #008000;
+    font-size: 34px;
+}
+
+header div small {
+    color: #008000;
+}
+
+
+/*    --------------------------------------------------
+    :: Cuerpo
+    -------------------------------------------------- */
+
+h2 {
+    text-align: center;
+}
+
+#h3Menu {
+    padding-bottom: 10px;
+    margin: 0;
+}
+
+
+/*    --------------------------------------------------
+    :: Menu
+    -------------------------------------------------- */
+
+#menu {
+    padding: 2em;
+}
+
+
+/*    --------------------------------------------------
+    :: Login
+    -------------------------------------------------- */
+
+#login {
+    padding: 2em;
+}
+
+
+/*    --------------------------------------------------
+    :: Footer
+    -------------------------------------------------- */
+
+#footer {
+    color: #6d6d6d;
+    font-size: 15px;
+    text-align: center;
+}
+
+#footer p {
+    margin-bottom: 0;
+}
+
+.inicio{
+    position: fixed;
+    margin-left: 23%;
+    margin-bottom: 100%;
+}
+
+.uabc{
+    color:#017141;
+}
+.facultad{
+    color:#017141;
+}
+.logo {
+    height: 110px;
+}
+.bienvenida{
+    margin-left:10px;
+}
+
+.sort-click{
+    cursor:pointer;
+}
+.footer-listar{
+    margin-left:20%;
+}

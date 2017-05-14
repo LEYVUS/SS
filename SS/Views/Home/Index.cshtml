@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+@using System.Web.Optimization
+<html>
+<head>
+    @Scripts.Render("~/Content/jquery")
+    @Scripts.Render("~/Content/Bootstrap/js")
+    @Styles.Render("~/Content/Bootstrap/css")
+    @Scripts.Render("~/Content/Angular")
+    @Scripts.Render("~/Content/Angular/app")
+    @Scripts.Render("~/Content/Angular/Inicio")
+    @Scripts.Render("~/Content/Angular/Usuario")
+    <title>Sistema de Solicitudes de Salidas</title>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="logoutCtrl" ng-init="startTime()">
+        <div ng-mousemove="clearTime()">
+
+            <ng-view></ng-view>
+        </div>
+    </div>
+</body>
+
+</html>
