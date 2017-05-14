@@ -60,18 +60,5 @@ namespace SS.Controllers
             }
             return NotFound();
         }
-
-        [AllowAnonymous]
-        [Route("api/data/forall")]
-        [HttpGet]
-        public IHttpActionResult Prueba(int Id)
-        {
-            UsuarioDTO usuarioDTO = servicioUsuario.BuscarPorId(Id);
-            if (usuarioDTO != null)
-            {
-                return Ok(usuarioDTO);
-            }
-            return NotFound();
-        }
     }
 }

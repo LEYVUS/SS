@@ -42,8 +42,8 @@ namespace SS
 
             bundles.Add(new ScriptBundle("~/Content/Angular/Usuario").Include(
                        "~/Content/src/Controller/UsuarioControlador.js",
-                       "~/Content/src/Controller/timeOutCtrl.js", 
-                       "~/Content/src/Service/UsuarioServicio.js"));
+                       "~/Content/src/Service/TokenServicio.js",
+                        "~/Content/src/Filter/FiltroUsuario.js"));
 
         }
     }

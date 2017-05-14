@@ -1,4 +1,4 @@
-﻿app.factory('loginServicio', function ($http, $q, servicioURL, usuarioServicio) {
+﻿app.factory('loginServicio', function ($http, $q, servicioURL, tokenServicio) {
     
     function ObtenerToken(usuario) {
         var login = { 'username': usuario.Correo, 'password': usuario.Contrasenia, 'grant_type': 'password' };
@@ -17,7 +17,7 @@
             data: Object.toparams(login),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function (response) {
-            usuarioServicio.setUsuario(response.data);
+            tokenServicio.setUsuario(response.data);
             defer.resolve(response.data);
         }, function (error) {
             defer.reject(error.data);
@@ -34,7 +34,7 @@
         $http({
             method: 'get',
             url: servicioURL + "SS/Login",
-            headers: {'Authorization': 'Bearer ' + usuarioServicio.getUsuario()}
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
         }).then(function (response) {
             defer.resolve(response.data);
         }, function (error) {

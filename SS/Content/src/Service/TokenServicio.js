@@ -1,4 +1,4 @@
-﻿app.factory('usuarioServicio', function (localStorageService) {
+﻿app.factory('tokenServicio', function (localStorageService) {
     var usuarioActual = {};
 
     function setUsuario(token) {
