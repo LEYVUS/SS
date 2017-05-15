@@ -161,10 +161,14 @@
     <Content Include="Content\src\app.js" />
     <Content Include="Content\src\Constant\ServicioURL.js" />
     <Content Include="Content\src\Controller\LoginControlador.js" />
+    <Content Include="Content\src\Controller\NotificacionControlador.js" />
+    <Content Include="Content\src\Controller\SolicitudControlador.js" />
     <Content Include="Content\src\Controller\TiempoControlador.js" />
+    <Content Include="Content\src\Controller\UsuarioControlador.js" />
     <Content Include="Content\src\Directive\TempleteDirectiva.js" />
+    <Content Include="Content\src\Filter\FiltroUsuario.js" />
     <Content Include="Content\src\Service\LoginServicio.js" />
-    <Content Include="Content\src\Service\UsuarioServicio.js" />
+    <Content Include="Content\src\Service\TokenServicio.js" />
     <Content Include="Content\views\borrar.html" />
     <Content Include="Content\views\editar.html" />
     <Content Include="Content\views\footer.html" />
@@ -175,6 +179,8 @@
     <Content Include="Content\views\login.html" />
     <Content Include="Content\views\mensaje.html" />
     <Content Include="Content\views\menu.html" />
+    <Content Include="Content\views\notificaciones.html" />
+    <Content Include="Content\views\solicitud.html" />
     <Content Include="Content\views\usuario.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -189,6 +195,7 @@
     <Compile Include="Componentes\TransferirDTO.cs" />
     <Compile Include="Componentes\TransferirEntidad.cs" />
     <Compile Include="Controllers\CarreraController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolController.cs" />
