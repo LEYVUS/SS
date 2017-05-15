@@ -22,7 +22,7 @@ namespace SS
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(5),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(20),
                 Provider = myProvider
             };
             app.UseOAuthAuthorizationServer(options);

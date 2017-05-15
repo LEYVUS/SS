@@ -45,6 +45,12 @@ namespace SS
                        "~/Content/src/Service/TokenServicio.js",
                         "~/Content/src/Filter/FiltroUsuario.js"));
 
+            bundles.Add(new ScriptBundle("~/Content/Angular/Solicitud").Include(
+                     "~/Content/src/Controller/SolicitudControlador.js"));
+
+            bundles.Add(new ScriptBundle("~/Content/Angular/Notificacion").Include(
+                  "~/Content/src/Controller/NotificacionControlador.js"));
+
         }
     }
 }

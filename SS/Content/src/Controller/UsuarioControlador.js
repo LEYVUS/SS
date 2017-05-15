@@ -35,17 +35,14 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
              );
     }
 
-    $scope.obtenerRoles = function () {
-        $scope.roles = utileria.ObtenerRoles();
-    }
+
     ///
 
 
     ///
 
     $scope.mostrarOpciones = function (usuarioDTO) {
-
-        if ($rootScope.loggedUser.Id === usuarioDTO.Id) {
+        if ($rootScope.loggedUser!= null && $rootScope.loggedUser.Correo === usuarioDTO.Correo) {
             return false;
         }
         return true;
@@ -59,8 +56,11 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
         if ($rootScope.modal) {
             $rootScope.modal = false;
             if (Rol === 'Coordinador') {
-                $http.get(utileria.ObtenerURL() + 'Carrera/' + Id)
-                  .then (
+                $http({
+                    method: 'get',
+                    url: servicioURL + "SS/Carrera/"+ Id,
+                    headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+                }).then (
                         function (respuestaExito) {
                             $scope.carrera = angular.copy(respuestaExito.data);
 
@@ -75,7 +75,13 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                                 modal.element.modal();
                                 modal.close.then(function (usuarioDTO) {
                                     $scope.modal = true;
-                                    $http.put(utileria.ObtenerURL() + 'Usuario', usuarioDTO).then(function(){
+                                    $http({
+                                        method: 'put',
+                                        url: servicioURL + "SS/Usuario",
+                                        data:usuarioDTO,
+                                        headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+                                    }).then(function () {
+                                        location.reload();
                                     }, function (error) {
                                         mostrarModal(error.data.ExceptionMessage)
                                     });
@@ -83,11 +89,14 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                             });
                         });
             } else {
-                $http.get(utileria.ObtenerURL() + 'Usuario/' + Id)
+                $http({
+                    method: 'get',
+                    url: servicioURL + "SS/Usuario/"+ Id,
+                    headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+                })
                 .then (
                       function (respuestaExito) {
                           $scope.usuario = angular.copy(respuestaExito.data);
-
                           ModalService.showModal({
                               templateUrl: '../../Content/views/editar.html',
                               controller: "EditarController",
@@ -99,7 +108,12 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                               modal.element.modal();
                               modal.close.then(function (usuarioDTO) {
                                   $scope.modal = true;
-                                  $http.put(utileria.ObtenerURL() + 'Usuario', usuarioDTO).then(function () {
+                                  $http({
+                                      method: 'put',
+                                      url: servicioURL + "SS/Usuario",
+                                      data: usuarioDTO,
+                                      headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+                                  }).then(function () {
                                       location.reload();
                                   }, function (error) {             
                                       mostrarModal(error.data.ExceptionMessage)

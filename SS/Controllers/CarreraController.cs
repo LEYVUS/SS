@@ -22,5 +22,13 @@ namespace SS.Controllers
         {
             return Ok(carreraServicio.BuscarPorUsuario(id));
         }
+
+        [Authorize]
+        [Route("SS/Carrera")]
+        [HttpGet]
+        public IHttpActionResult BuscarTodos()
+        {
+            return Ok(carreraServicio.BuscarTodos());
+        }
     }
 }

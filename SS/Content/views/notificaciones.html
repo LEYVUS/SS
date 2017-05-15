@@ -1,0 +1,32 @@
+﻿<div ng-controller="notificacionCtrl" ng-init="notificacionesListar(loggedUser)">
+    <div class="container">
+        <div myheader></div>
+        <div class="row">
+            <div mymenu></div>
+            <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
+                <h3>Notificaciones</h3>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Folio</th>
+                        <th>Nombre de la Solicitud</th>
+                        <th>Estado de la Solicitud</th>
+                        <th ng-show="verificacion(loggedUser.Rol)">Revisar</th>
+                        <th ng-show="!verificacion(loggedUser.Rol)">Editar</th>
+                    </tr>
+                    <tr ng-repeat="notificacion in notificaciones | estado: loggedUser">
+                        <td>{{notificacion.Folio}}</td>
+                        <td>{{notificacion.Evento.Nombre}}</td>
+                        <td>{{notificacion.Estado.Tipo}}</td>
+
+                        <td ng-show="verificacion(loggedUser.Rol)"><button class="btn btn-primary btn-xs glyphicon glyphicon-eye-open"></button></td>
+                        <td ng-show="!verificacion(loggedUser.Rol)"><button class="btn btn-primary btn-xs glyphicon glyphicon-edit"></button></td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div myfooter></div>
+</div>

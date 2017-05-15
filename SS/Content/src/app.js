@@ -18,8 +18,12 @@ app.config(function ($routeProvider, localStorageServiceProvider) {
             templateUrl: '../Content/views/inicio.html',
         })
          .when('/SS/Solicitud', {
-             templateUrl: '../Content/views/agregar.html',
+             templateUrl: '../Content/views/solicitud.html',
          })
+        .when('/SS/Notificacion', {
+              templateUrl: '../Content/views/notificaciones.html',
+              controller: "notificacionCtrl"
+        })
         .otherwise({
             redirectTo: '/login'
         })

@@ -1,0 +1,227 @@
+<div ng-controller="solicitudCtrl" ng-init="obtenerValores()">
+    <div class="container" />
+    <div myheader></div>
+    <div mymenu></div>
+    <div class="col-lg-offset-1 col-sm-8 col-md-8 col-lg-8" name="myForm">
+        <div class="row">
+            <form name="solicitante">
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" name="Nombre" class="form-control" ng-model="solicitudDTO.nombre_Solicitante" required>
+                        <div ng-show="solicitante.Nombre.$invalid && solicitante.Nombre.$dirty" role="alert">
+                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="numero">N&uacute;mero de empleado</label>
+                        <input type="number" name="Numero" class="form-control" ng-model="solicitudDTO.numero_Empleado" required>
+                        <div ng-show="solicitante.Numero.$invalid && solicitante.Numero.$dirty" role="alert">
+                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <form name="evento">
+                <div class="form-group col-md-6 col-lg-6">
+                    <label for="nombre-evento">Nombre del evento:</label>
+                    <input type="text" name="eventoNombre" ng-model="solicitudDTO.Evento.Nombre" class="form-control" required>
+                    <div ng-show="evento.eventoNombre.$invalid && evento.eventoNombre.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-lg-6">
+                    <label for="costo-evento">Lugar del evento:</label>
+                    <input type="text" name="eventoLugar" ng-model="solicitudDTO.Evento.Lugar" class="form-control" required>
+                    <div ng-show="evento.eventoLugar.$invalid && evento.eventoLugar.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 col-lg-6">
+                    <label for="costo-evento">Costo del evento:</label>
+                    <input type="number" ng-model="solicitudDTO.Evento.Costo" class="form-control" required placeholder="$">
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <form name="forma">
+                <div class="col-md-6 col-lg-6">
+                    <div class="dropdown">
+                        <label for="carrera">Carrera</label>
+                        <br>
+                        <select name="carrera" ng-model="solicitudDTO.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera"></select>
+                        <div ng-show="forma.carrera.$invalid && forma.carrera.$dirty" role="alert">
+                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="dropdown">
+                        <label for="categoria">Categor&iacute;a</label>
+                        <br>
+                        <select name="categoria" ng-model="solicitudDTO.Categoria" ng-options="categoria.Nombre for categoria in categorias" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Categoria"></select>
+                        <div ng-show="forma.categoria.$invalid && forma.categoria.$dirty" role="alert">
+                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label for="fecha">Fecha de salida</label>
+                    <input type="date" name="fechaSalida" ng-model="solicitudDTO.fecha_salida" class="form-control" required>
+                    <div ng-show="myForm.fechaSalida.$invalid && myForm.fechaSalida.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label for="fecha">Hora de salida</label>
+                    <input type="time" name="horaSalida" ng-model="solicitudDTO.fecha_salida" class="form-control" required>
+                    <div ng-show="myForm.horaSalida.$invalid && myForm.horaSalida.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label for="fecha">Fecha de llegada</label>
+                    <input type="date" name="fechaLlegada" ng-model="solicitudDTO.fecha_llegada" class="form-control" required>
+                    <div ng-show="myForm.fechaLlegada.$invalid && myForm.fechaLlegada.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label for="fecha">Hora de llegada</label>
+                    <input type="time" name="horaLlegada" ng-model="solicitudDTO.fecha_llegada" class="form-control" required>
+                    <div ng-show="myForm.horaLlegada.$invalid && myForm.horaLlegada.$dirty" role="alert">
+                        <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="recurso">
+            <label>Recursos a solicitar</label>
+            <div>
+
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-6">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="true" ng-model="solicitudDTO.recurso_Solicitado.Hospedaje">Hospedaje
+                        </label>
+                        <br>
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="true" ng-model="solicitudDTO.recurso_Solicitado.Viatico">V&iacute;aticos
+                        </label>
+                        <br>
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="true" ng-model="solicitudDTO.recurso_Solicitado.Oficio_Comision">Oficios de comisi&oacute;n
+                        </label>
+                        <br>
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="true" ng-model="solicitudDTO.recurso_Solicitado.Otro">Otro
+                        </label>
+                        <br>
+                        <label for="correo">Descripción otra:</label>
+                        <br>
+                        <input type="text" class="form-control" ng-model="solicitudDTO.recurso_Solicitado.Descripcion_Otro" ng-disabled="!solicitudDTO.recurso_Solicitado.Otro" placeholder="Otros ...">
+                        <br>
+
+
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+
+
+                        <div class="form-group">
+                            <label for="transporte">Trasporte</label>
+                            <input type="number" name="transporte" ng-model="solicitudDTO.recurso_Solicitado.Transporte" class="form-control" placeholder="Cantidad de personas ...">
+                            <div ng-show="recurso.transporte.$invalid && recurso.transporte.$dirty" role="alert">
+                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="true" ng-model="solicitudDTO.recurso_Solicitado.Combustible">Combustible
+                            </label>
+                            <br>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <label>Actividades asociadas</label>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.CACEI">CACEI/CIEES
+                </label>
+                <br>
+                <br>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.Licenciatura">Licenciatura
+                </label>
+                <br>
+                <br>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.Personal">Personal
+                </label>
+            </div>
+        
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.ISO">ISO 9001:2008
+                    </label>
+
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.Posgrado">Posgrado
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-model="solicitudDTO.Actividad.Otro">Otro
+                    </label>
+                    <br>
+                    <label for="correo">Descripci&oacute;n otra:</label>
+                    <br>
+                    <input class="form-control" ng-model="solicitudDTO.Actividad.Descripcion_Otro" ng-disabled="!solicitudDTO.Actividad.Otro" placeholder="Otros ...">
+                    <br>
+                </div>
+
+
+                {{isCheckboxChecked()}}
+                <button type="submit" ng-keypress="" class="btn btn-primary pull-right" ng-disabled="!isCheckboxChecked()" ng-click="agregarSolicitud()">Enviar</button>
+            </div>
+        </div>
+    </div>
+        <br>
+        <br />
+        <div myfooter></div>
+    </div>

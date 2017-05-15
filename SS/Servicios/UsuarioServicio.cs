@@ -63,12 +63,16 @@ namespace SS.Servicios
             {
                 if (ExisteComponente.UABC(usuarioDTO) && ExisteComponente.FIAD(usuarioDTO))
                 {
-                    Usuario usuario = usuarioRepositorio.BuscarPorId(usuarioDTO.Id);
-                    usuario.Correo = usuarioDTO.Correo;
-                    usuarioRepositorio.Modificar(usuario);
-                    return MensajeComponente.mensaje("", true);
+                    if (usuarioRepositorio.BuscarPorCorreo(usuarioDTO.Correo) == null)
+                    {
+                        Usuario usuario = usuarioRepositorio.BuscarPorId(usuarioDTO.Id);
+                        usuario.Correo = usuarioDTO.Correo;
+                        usuarioRepositorio.Modificar(usuario);
+                        return MensajeComponente.mensaje("", true);
+                    }
+                    return MensajeComponente.mensaje("El correo ya existe en el sistema", false);
                 }
-                return MensajeComponente.mensaje("El correo no pertenece a la UABC", false);
+                return MensajeComponente.mensaje("El correo no pertenece a UABC", false);
             }
             return MensajeComponente.mensaje("Los datos no son validos", false);
         }
