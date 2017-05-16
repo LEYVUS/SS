@@ -16,6 +16,24 @@ namespace SS.Repositorios.Implementaciones
         {
             this.context = context;
         }
+        public List<Solicitud> BuscarSolicitudPorCorreo(Usuario usuario)
+        {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudSS;
+            var solicitud = from s in context.Solicituds where s.Correo_Solicitante == usuario.Correo
+                            select s;
+            try
+            {
+                solicitudSS = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudSS;
+        }
+
 
         public List<Solicitud> BuscarSolicitudPorRol(Usuario usuario)
         {

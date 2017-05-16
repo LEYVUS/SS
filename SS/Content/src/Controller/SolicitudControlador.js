@@ -38,6 +38,21 @@ appController.controller("solicitudCtrl", function ($scope, $location, $rootScop
         );
     };
 
+    $scope.obtenerSolicitudesCorreo = function () {
+        $http({
+            method: 'post',
+            url: servicioURL + "SS/Docente",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: $rootScope.loggedUser
+        })
+            .then(
+                function (respuestaExito) {
+                    console.log(respuestaExito);
+                    $scope.solicitudes = angular.copy(respuestaExito.data);
+                },            function (respuestaError) {
+                    console.error('Error al enlistar Solicitudes')
+                });
+    }
 
     $scope.obtenerSolicitudes = function () {
         console.log(tokenServicio.getUsuario())

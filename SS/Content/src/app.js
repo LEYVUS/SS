@@ -20,8 +20,11 @@ app.config(function ($routeProvider, localStorageServiceProvider) {
          .when('/SS/Solicitud', {
              templateUrl: '../Content/views/solicitud.html',
          })
-        .when('/SS/Solicitud/Solicitudes', {
-            templateUrl: '../Content/views/historial-administrativo.html'
+         .when('/SS/Solicitud/Solicitudes', {
+             templateUrl: '../Content/views/historial-administrativo.html'
+            })
+        .when('/SS/Solicitud/Docente', {
+            templateUrl: '../Content/views/historial-docente.html'
         })
         .when('/SS/Notificacion', {
               templateUrl: '../Content/views/notificaciones.html',

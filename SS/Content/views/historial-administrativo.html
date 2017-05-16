@@ -18,20 +18,19 @@
                         </tr>    
                         <tbody>
                             <tr ng-repeat="solicitudDTO in solicitudes">
-                                
                                 <td>{{solicitudDTO.Id}}</td>
                                 <td>{{solicitudDTO.Evento.Nombre}}</td>
                                 <td>{{solicitudDTO.Nombre_Solicitante}}</td>
                                 <td>{{solicitudDTO.Correo_Solicitante}}</td>
                                 <td>{{solicitudDTO.Evento.Fecha_Hora_Salida}}</td>
                                 <td>{{solicitudDTO.Estado.Tipo}}</td>
-                                <td><button ng-show="" type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click=""></button></td>
+                                <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click=""></button></td>
+                                <td><button type="button" class="btn btn-primary btn-lg" ng-click=""></button></td>
+                                <td><button type="button" class="btn btn-primary btn-lg" ng-click=""></button></td>
                             </tr>
                         </tbody>
 
                     </table>
-
-                 
-        <div myfooter></div>
 </div>
+    <div myfooter></div>
     </div>

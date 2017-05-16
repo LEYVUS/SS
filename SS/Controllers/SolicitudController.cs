@@ -24,13 +24,28 @@ namespace SS.Controllers
         /// Lista las Solicitudes
         /// </summary>
         /// <returns>Muestra la lista de solicitudes</returns>
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [Route("SS/Historial")]
         [HttpGet]
         public IHttpActionResult ListarSolicitud()
         {
             return Ok(servicioSolicitud.BuscarTodos());
         }
+
+        /// <summary>
+        /// Lista las Solicitudes del docente en especifico
+        /// </summary>
+        /// <returns>Muestra la lista de solicitudes</returns>
+        [Authorize]
+        [Route("SS/Docente")]
+        [HttpPost]
+        public IHttpActionResult ListarSolicitudPorCorreo([FromBody] UsuarioDTO usuarioDTO)
+        {
+            return Ok(servicioSolicitud.BuscarSolicitudesPorCorreo(usuarioDTO));
+        }
+
+
+
 
         [Authorize]
         [Route("SS/Solicitud/Rol")]
