@@ -9,6 +9,10 @@ namespace SS.Models.Entidades.SS
     [Table("Solicitud")]
     public partial class Solicitud
     {
+        public Solicitud()
+        {
+
+        }
         public Solicitud(Actividad actividad, Categoria categoria, Evento evento, Recurso recurso, Validacion validacion)
         {
             Actividad = actividad;

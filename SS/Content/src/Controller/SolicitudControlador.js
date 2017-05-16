@@ -5,8 +5,10 @@ appController.controller("solicitudCtrl", function ($scope, $location, $rootScop
         recurso_Solicitado: {
         }
     };
+    $scope.solicitudes = {};
     $scope.carreras = [];
     $scope.categorias = [];
+    
 
     $scope.obtenerValores = function () {
         $http({
@@ -34,6 +36,25 @@ appController.controller("solicitudCtrl", function ($scope, $location, $rootScop
                    console.error('Error while fetching Users');
               }
         );
+    };
+
+
+    $scope.obtenerSolicitudes = function () {
+        console.log(tokenServicio.getUsuario())
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Historial",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+        .then(
+            function (respuestaExito) {
+                console.log(respuestaExito);
+                $scope.solicitudes = angular.copy(respuestaExito.data); 
+                console.log($scope.solicitudes);
+            },
+            function (respuestaError) {
+                console.error('Error al enlistar Solicitudes')
+            });
     };
 
     $scope.isCheckboxChecked = function () {

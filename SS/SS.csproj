@@ -173,6 +173,8 @@
     <Content Include="Content\views\editar.html" />
     <Content Include="Content\views\footer.html" />
     <Content Include="Content\views\header.html" />
+    <Content Include="Content\views\historial-administrativo.html" />
+    <Content Include="Content\views\historial-docente.html" />
     <Content Include="Content\views\index.html" />
     <Content Include="Content\views\inicio.html" />
     <Content Include="Content\views\listar.html" />

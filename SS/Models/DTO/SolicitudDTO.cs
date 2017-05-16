@@ -9,51 +9,22 @@ namespace SS.Models.DTO
 
     public partial class SolicitudDTO
     {
-        private CategoriaDTO categoriaDTO;
-        private CarreraDTO carreraDTO;
-        private EventoDTO eventoDTO;
-        private RecursoDTO recursoDTO;
-        private ActividadDTO actividadDTO;
-        private ValidacionDTO validacionDTO;
-        private EstadoDTO estadoDTO;
 
-        public SolicitudDTO(int id, string folio, string nombre_Solicitante, int numero_Empleado, 
-            CategoriaDTO categoria, CarreraDTO carrera, EventoDTO evento, RecursoDTO recurso_Solicitado,
-            ActividadDTO actividad, ValidacionDTO validacion, EstadoDTO estado, DateTime fecha_Creacion, 
-            DateTime fecha_Modificacion, string correo_Solicitante, string comentario_Rechazado, 
-            bool leido)
+
+        public SolicitudDTO(string correo_Solicitante, int id, string folio, string nombre_Solicitante, int numero_Empleado, CategoriaDTO categoriaDTO, CarreraDTO carreraDTO, EventoDTO eventoDTO, RecursoDTO recursoDTO, ActividadDTO actividadDTO, ValidacionDTO validacionDTO, EstadoDTO estado, DateTime fecha_Creacion, DateTime fecha_Modificacion)
         {
-            Id = id;
-            Folio = folio;
-            Nombre_Solicitante = nombre_Solicitante;
-            Numero_Empleado = numero_Empleado;
-            Categoria = categoria;
-            Carrera = carrera;
-            Evento = evento;
-            Recurso_Solicitado = recurso_Solicitado;
-            Actividad = actividad;
-            Validacion = validacion;
-            Estado = estado;
-            Fecha_Creacion = fecha_Creacion;
-            Fecha_Modificacion = fecha_Modificacion;
             Correo_Solicitante = correo_Solicitante;
-            Comentario_Rechazado = comentario_Rechazado;
-            Leido = leido;
-        }
-
-        public SolicitudDTO(int id, string folio, string nombre_Solicitante, int numero_Empleado, CategoriaDTO categoriaDTO, CarreraDTO carreraDTO, EventoDTO eventoDTO, RecursoDTO recursoDTO, ActividadDTO actividadDTO, ValidacionDTO validacionDTO, EstadoDTO estadoDTO, DateTime fecha_Creacion, DateTime fecha_Modificacion)
-        {
             Id = id;
             Folio = folio;
             Nombre_Solicitante = nombre_Solicitante;
             Numero_Empleado = numero_Empleado;
-            this.categoriaDTO = categoriaDTO;
-            this.carreraDTO = carreraDTO;
-            this.eventoDTO = eventoDTO;
-            this.recursoDTO = recursoDTO;
-            this.actividadDTO = actividadDTO;
-            this.validacionDTO = validacionDTO;
-            this.estadoDTO = estadoDTO;
+            this.Categoria = categoriaDTO;
+            this.Carrera = carreraDTO;
+            this.Evento = eventoDTO;
+            this.Recurso_Solicitado = recursoDTO;
+            this.Actividad = actividadDTO;
+            this.Validacion = validacionDTO;
+            this.Estado = estado;
             Fecha_Creacion = fecha_Creacion;
             Fecha_Modificacion = fecha_Modificacion;
         }
@@ -89,6 +60,7 @@ namespace SS.Models.DTO
         public String Comentario_Rechazado { get; set; }
 
         public bool Leido { get; set; }
+      
 
     }
 }

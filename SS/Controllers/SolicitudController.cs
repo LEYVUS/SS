@@ -25,7 +25,7 @@ namespace SS.Controllers
         /// </summary>
         /// <returns>Muestra la lista de solicitudes</returns>
         [Authorize]
-        [Route("SS/Solicitud")]
+        [Route("SS/Historial")]
         [HttpGet]
         public IHttpActionResult ListarSolicitud()
         {

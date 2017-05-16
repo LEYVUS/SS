@@ -42,7 +42,7 @@ namespace SS.Servicios
                 solicitudRepositorio.Agregar(solicitud);
                 return MensajeComponente.mensaje("Solicitud creada exitosamente", true);
             }
-            return MensajeComponente.mensaje("Error al crear la solictud", false);
+            return MensajeComponente.mensaje("Error al crear la solicitud", false);
         }
 
 

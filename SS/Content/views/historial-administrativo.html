@@ -1,0 +1,37 @@
+
+<div ng-controller="solicitudCtrl" ng-init="obtenerSolicitudes()">
+    <div myheader></div>
+    <div mymenu></div>
+                <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
+                    <h3>Historial de Solicitudes</h3>
+                    <table class="table">
+                        <tr>
+                            <th>Folio</th>
+                            <th>Nombre de la Solicitud</th>
+                            <th>Nombre del Solicitante</th>
+                            <th>Correo</th>
+                            <th>Fecha de salida</th>
+                            <th>Estado</th>
+                            <th>Reporte</th>
+                            <th>Aceptar</th>
+                            <th>Rechazar</th>
+                        </tr>    
+                        <tbody>
+                            <tr ng-repeat="solicitudDTO in solicitudes">
+                                
+                                <td>{{solicitudDTO.Id}}</td>
+                                <td>{{solicitudDTO.Evento.Nombre}}</td>
+                                <td>{{solicitudDTO.Nombre_Solicitante}}</td>
+                                <td>{{solicitudDTO.Correo_Solicitante}}</td>
+                                <td>{{solicitudDTO.Evento.Fecha_Hora_Salida}}</td>
+                                <td>{{solicitudDTO.Estado.Tipo}}</td>
+                                <td><button ng-show="" type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click=""></button></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                 
+        <div myfooter></div>
+</div>
+    </div>
