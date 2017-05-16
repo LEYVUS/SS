@@ -10,6 +10,10 @@ namespace SS.Models.DTO
     public partial class SolicitudDTO
     {
 
+        public SolicitudDTO()
+        {
+
+        }
 
         public SolicitudDTO(string correo_Solicitante, int id, string folio, string nombre_Solicitante, int numero_Empleado, CategoriaDTO categoriaDTO, CarreraDTO carreraDTO, EventoDTO eventoDTO, RecursoDTO recursoDTO, ActividadDTO actividadDTO, ValidacionDTO validacionDTO, EstadoDTO estado, DateTime fecha_Creacion, DateTime fecha_Modificacion)
         {
@@ -30,7 +34,7 @@ namespace SS.Models.DTO
         }
 
         public int Id { get; set; }
-        
+
         public string Folio { get; set; }
 
         public string Nombre_Solicitante { get; set; }
@@ -60,7 +64,7 @@ namespace SS.Models.DTO
         public String Comentario_Rechazado { get; set; }
 
         public bool Leido { get; set; }
-      
+
 
     }
 }

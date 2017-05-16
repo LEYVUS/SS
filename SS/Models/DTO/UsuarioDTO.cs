@@ -23,15 +23,9 @@ namespace SS.Models.DTO
             Numero_Empleado = numero_Empleado;
         }
 
-        public UsuarioDTO(string nombre, string correo, RolDTO rol)
+        public UsuarioDTO(int id,string nombre, string correo, RolDTO rol)
         {
             Nombre = nombre;
-            Correo = correo;
-            Rol = rol;
-        }
-        public UsuarioDTO(int id, string correo, RolDTO rol)
-        {
-            Id = id;
             Correo = correo;
             Rol = rol;
         }

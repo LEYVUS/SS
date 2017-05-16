@@ -78,7 +78,7 @@ namespace SS.Servicios
                 {
                     return false;
                 }
-                if (solicitudDTO.Numero_Empleado == 0)
+                if (solicitudDTO.Correo_Solicitante == "")
                 {
                     return false;
                 }

@@ -23,7 +23,7 @@ namespace SS.Componentes
             RolDTO rolDTO = new RolDTO(usuario.Rol.Id,
                 usuario.Rol.Nombre, usuario.Rol.Descripcion);
             UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.Id,
-                usuario.Correo, rolDTO);
+               "",usuario.Correo, rolDTO);
             return usuarioDTO;
         }
 

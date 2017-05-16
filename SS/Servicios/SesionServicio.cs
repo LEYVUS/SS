@@ -93,9 +93,9 @@ namespace SS.Servicios
             Usuario usuario = usuarioRepositorioSS.BuscarPorCorreo(correo);
             if(usuario != null)
             {
-                return new UsuarioDTO(usuarioUABC.Nombre, correo,TransferirDTO.TransferirRol(usuario.Rol));
+                return new UsuarioDTO(usuarioUABC.Numero_Empleado, usuarioUABC.Nombre, correo,TransferirDTO.TransferirRol(usuario.Rol));
             }
-                return new UsuarioDTO(usuarioUABC.Nombre,correo,null);
+                return new UsuarioDTO(usuarioUABC.Numero_Empleado,usuarioUABC.Nombre,correo,null);
         }
 
     }

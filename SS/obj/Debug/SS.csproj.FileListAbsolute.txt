@@ -259,7 +259,6 @@ C:\Users\FATE\Desktop\SS\SS\bin\es\System.Web.Mvc.resources.dll
 C:\Users\FATE\Desktop\SS\SS\bin\es\System.Net.Http.Formatting.resources.dll
 C:\Users\FATE\Desktop\SS\SS\bin\es\System.Web.Http.resources.dll
 C:\Users\FATE\Desktop\SS\SS\bin\es\System.Web.Http.WebHost.resources.dll
-C:\Users\FATE\Desktop\SS\SS\obj\Debug\SS.csprojResolveAssemblyReference.cache
 C:\Users\FATE\Desktop\SS\SS\obj\Debug\SS.dll
 C:\Users\FATE\Desktop\SS\SS\obj\Debug\SS.pdb
 C:\Users\FATE\Desktop\SS\SS\bin\Antlr3.Runtime.dll

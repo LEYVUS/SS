@@ -13,16 +13,14 @@ namespace SS.Models.Entidades.SS
         {
 
         }
-        public Solicitud(Actividad actividad, Categoria categoria, Evento evento, Recurso recurso, Validacion validacion)
+        public Solicitud(Actividad actividad, Recurso recurso, Validacion validacion, Evento evento)
         {
             Actividad = actividad;
-            Categoria = categoria;
-            Evento = evento;
             Recurso = recurso;
             Validacion = validacion;
+            Evento = evento;
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]
@@ -52,7 +50,7 @@ namespace SS.Models.Entidades.SS
 
         public DateTime Fecha_Modificacion { get; set; }
 
-        [Required]
+      
         [StringLength(50)]
         public string URL_Reporte { get; set; }
 
@@ -60,23 +58,23 @@ namespace SS.Models.Entidades.SS
         [StringLength(250)]
         public string Correo_Solicitante { get; set; }
 
-        [Required]
+      
         public string Comentario_Rechazado { get; set; }
 
         public bool Leido { get; set; }
 
         public virtual Actividad Actividad { get; set; }
 
+        public virtual Carrera Carrera { get; set; }
+
         public virtual Categoria Categoria { get; set; }
+
+        public virtual Estado Estado { get; set; }
 
         public virtual Evento Evento { get; set; }
 
         public virtual Recurso Recurso { get; set; }
 
         public virtual Validacion Validacion { get; set; }
-
-        public virtual Estado Estado { get; set; }
-
-        public virtual Carrera Carrera { get; set; }
     }
 }

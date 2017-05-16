@@ -15,7 +15,6 @@ namespace SS.Models.Entidades.SS
             Solicituds = new HashSet<Solicitud>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]
