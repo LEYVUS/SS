@@ -4,7 +4,7 @@
     <div mymenu></div>
                 <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
                     <h3>Historial de Solicitudes</h3>
-                    <table class="table">
+                    <table class="table" id="cssTable">
                         <tr>
                             <th>Folio</th>
                             <th>Nombre de la Solicitud</th>
@@ -25,8 +25,8 @@
                                 <td>{{solicitudDTO.Evento.Fecha_Hora_Salida}}</td>
                                 <td>{{solicitudDTO.Estado.Tipo}}</td>
                                 <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click=""></button></td>
-                                <td><button type="button" class="btn btn-primary btn-lg" ng-click=""></button></td>
-                                <td><button type="button" class="btn btn-primary btn-lg" ng-click=""></button></td>
+                                <td><button type="button" class="btn btn-success btn-xs glyphicon glyphicon-ok" ng-click=""></button></td>
+                                <td><button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click=""></button></td>
                             </tr>
                         </tbody>
 

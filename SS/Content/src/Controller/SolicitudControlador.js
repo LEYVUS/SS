@@ -1,9 +1,9 @@
 ﻿appController.controller("solicitudCtrl", function ($scope, $location, $rootScope, $http, ModalService, servicioURL, tokenServicio) {
 
     $scope.solicitudDTO = {
-        Id: 1, Folio: 1, Leido: "", Fecha_Cracion: new Date(), Fecha_Modificacion: new Date(), Comentario_Rechazado: "",
+        Id: 1, Folio: 1, Leido: "", Fecha_Creacion: new Date(), Fecha_Modificacion: new Date(), Comentario_Rechazado: "",
         Correo_Solicitante: $rootScope.loggedUser.Correo,
-        Validacion: { Admiinistrador: false, Coordinador: false, Director: false, Id: "", Posgrado: false, Subdirector: false }
+        Validacion: { Administrador: false, Coordinador: false, Director: false, Id: "", Posgrado: false, Subdirector: false }
     }
 
     $scope.otroRecurso = false;
