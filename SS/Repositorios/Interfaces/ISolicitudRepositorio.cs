@@ -9,8 +9,11 @@ namespace SS.Repositorios.Interfaces
 {  
         interface ISolicitudRepositorio
         {
-            List<Solicitud> BuscarSolicitudPorSubDirector(Usuario usuario);
-            List<Solicitud> BuscarSolicitudPorDirector(Usuario usuario);
-        List<Solicitud> BuscarSolicitudPorPosgrado(Usuario usuario);
+            List<Solicitud> BuscarSolicitudPorSubDirector(String correo);
+            List<Solicitud> BuscarSolicitudPorDirector(String correo);
+            List<Solicitud> BuscarSolicitudPorPosgrado(String correo);
+            List<Solicitud> buscarSolicitudesPorCoordinador(String correo);
+            List<Solicitud> buscarSolicitudesPorDocente(String correo);
+            List<Solicitud> buscarSolicitudesPorAdministrador(String correo);
     }
 }

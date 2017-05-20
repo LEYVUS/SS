@@ -32,10 +32,55 @@ namespace SS.Servicios
             return solicitudesDTO;
         }
 
+        public SolicitudDTO BuscarSolicitudPorId(int id)
+        {
+            SolicitudDTO solicitudDTO = new SolicitudDTO();
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
+           solicitudDTO =  TransferirDTO.TransferirSolicitud(solicitud);
+            return solicitudDTO;
+        }
+
         public List<SolicitudDTO> BuscarSolicitudesPorRols(UsuarioDTO usuario)
         {
             List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
-            List<Solicitud> solicitudes = solicitudRepositorio.BuscarSolicitudPorRol(TransferirEntidad.TransferirDatosUsuarioDTO(usuario)).ToList();
+            List<Solicitud> solicitudes;
+
+            if (usuario.Rol != null)
+            {
+
+                switch (usuario.Rol.Descripcion)
+                {
+                    case "Coordinador":
+                        solicitudes = solicitudRepositorio.buscarSolicitudesPorCoordinador(usuario.Correo);
+                        break;
+
+                    case "Posgrado":
+                        solicitudes = solicitudRepositorio.BuscarSolicitudPorPosgrado(usuario.Correo);
+                        break;
+
+                    case "Administrador":
+                        solicitudes = solicitudRepositorio.buscarSolicitudesPorAdministrador(usuario.Correo);
+                        break;
+
+                    case "Subdirector":
+                        solicitudes = solicitudRepositorio.BuscarSolicitudPorSubDirector(usuario.Correo);
+                        break;
+
+                    case "Director":
+                        solicitudes = solicitudRepositorio.BuscarSolicitudPorDirector(usuario.Correo);
+                        break;
+                    default:
+                        solicitudes = new List<Solicitud>();
+                        break;
+
+                }
+
+            }
+            else
+            {
+                solicitudes = solicitudRepositorio.buscarSolicitudesPorDocente(usuario.Correo);
+            }
+
             foreach (Solicitud solicitud in solicitudes)
             {
                 solicitudesDTO.Add(TransferirDTO.TransferirSolicitud(solicitud));

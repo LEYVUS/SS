@@ -1,4 +1,4 @@
-﻿appController.controller("solicitudCtrl", function ($scope, $location, $rootScope, $http, ModalService, servicioURL, tokenServicio) {
+﻿appController.controller("solicitudCtrl", function ($scope, $location, $rootScope, $http, ModalService, servicioURL, tokenServicio, $routeParams) {
 
     $scope.solicitudDTO = {
         Id: 1, Folio: 1, Leido: "", Fecha_Creacion: new Date(), Fecha_Modificacion: new Date(), Comentario_Rechazado: "",
@@ -61,7 +61,6 @@
     }
 
     $scope.obtenerSolicitudes = function () {
-        console.log(tokenServicio.getUsuario())
         $http({
             method: 'get',
             url: servicioURL + "SS/Historial",
@@ -78,6 +77,24 @@
             });
     };
 
+    $scope.mostrarSolicitud = function () {
+        var id = $routeParams.id;
+
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Solicitud/ " + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+        .then(
+        function(respuestaExito){
+            $scope.solicitudDTO = angular.copy(respuestaExito.data);
+            console.log(respuestaExito)
+        },
+                    function (respuestaError) {
+                        console.error('Error al buscar la  solicitud')
+                    });
+    };
+
     $scope.isCheckboxChecked = function () {
         return (($scope.solicitudDTO.Recurso_Solicitado.Hospedaje || $scope.solicitudDTO.Recurso_Solicitado.Viatico
      || $scope.solicitudDTO.Recurso_Solicitado.Oficio_Comision || $scope.otroRecurso
@@ -88,8 +105,6 @@
 
 
     $scope.agregarSolicitud = function () {
-        console.log($scope.solicitudDTO);
-
         $http({
             method: 'post',
             url: servicioURL + "SS/Solicitud",

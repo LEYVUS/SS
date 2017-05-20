@@ -11,7 +11,7 @@
 
                 <table class="table table-striped">
                     <thead>
-                    <th class="sort-click" ng-click = "ordenamiento('Id')">Id</th>
+
                     <th class="sort-click" ng-click = "ordenamiento('Correo')">Correo electrónico</th>
                     <th class="sort-click" ng-click = "ordenamiento('Rol.Nombre')">Rol</th>
                     <th class="sort-click" ng-click = "ordenamiento('Rol.Descripcion')">Descripción</th>
@@ -50,7 +50,6 @@
 
                     <tbody>
                         <tr ng-repeat="usuarioDTO in usuarios | orderBy: myOrden | nombre :FiltroR | descripcion :FiltroD ">
-                            <td>{{usuarioDTO.Id}}</td>
                             <td>{{usuarioDTO.Correo}}</td>
                             <td>{{usuarioDTO.Rol.Nombre}}</td>
                             <td>{{usuarioDTO.Rol.Descripcion}}</td>

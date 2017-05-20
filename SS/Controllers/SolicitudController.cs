@@ -44,7 +44,17 @@ namespace SS.Controllers
             return Ok(servicioSolicitud.BuscarSolicitudesPorCorreo(usuarioDTO));
         }
 
-
+        /// <summary>
+        /// Lista las Solicitudes del docente en especifico
+        /// </summary>
+        /// <returns>Muestra la lista de solicitudes</returns>
+        [Authorize]
+        [Route("SS/Solicitud/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult ListarSolicitudPorId([FromBody] int idUsuarioDTO)
+        {
+            return Ok(servicioSolicitud.BuscarSolicitudPorId(idUsuarioDTO));
+        }
 
 
         [Authorize]

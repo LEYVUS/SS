@@ -33,26 +33,22 @@ namespace SS.Repositorios.Implementaciones
 
             return solicitudSS;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorSubDirector(Usuario usuario)
-        {
-         
+        public List<Solicitud> BuscarSolicitudPorSubDirector(String correo) { 
             EntidadesSS context = new EntidadesSS();
             List<Solicitud> solicitudes;
-            var solicitud = (from s in context.Solicituds
+            var solicitud = from s in context.Solicituds
                              join v in context.Validacions
                                 on s.Id_Validacion equals v.Id
-                             where s.Validacion.Coordinador == false && s.Id_Estado == 1 && s.Correo_Solicitante != usuario.Correo
-                             select new Solicitud
-                             { 
-                                 Validacion = v
-                             });
-
+                             where s.Validacion.Subdirector == false 
+                             && s.Id_Estado == 1
+                             && s.Correo_Solicitante != correo
+                             select s;
             try
             { 
                 solicitudes = solicitud.ToList();
@@ -70,22 +66,19 @@ namespace SS.Repositorios.Implementaciones
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorDirector(Usuario usuario)
+        public List<Solicitud> BuscarSolicitudPorDirector(String correo)
         {
          
             EntidadesSS context = new EntidadesSS();
             List<Solicitud> solicitudes;
-            var solicitud = (from s in context.Solicituds
-                             join v in context.Validacions
-                                on s.Id_Validacion equals v.Id
-                             where s.Validacion.Director == false 
-                             && s.Id_Estado == 1 
-                             && s.Correo_Solicitante != usuario.Correo
-                             && s.Validacion.Administrador == true
-                             select new Solicitud
-                             {
-                                 Validacion = v
-                             });
+            var solicitud = from s in context.Solicituds
+                            join v in context.Validacions
+                               on s.Id_Validacion equals v.Id
+                            where s.Validacion.Director == false
+                            && s.Id_Estado == 1
+                            && s.Correo_Solicitante != correo
+                            && s.Validacion.Administrador == true
+                            select s;
 
             try
             {
@@ -113,23 +106,20 @@ namespace SS.Repositorios.Implementaciones
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorPosgrado(Usuario usuario)
+        public List<Solicitud> BuscarSolicitudPorPosgrado(String correo)
         {
           
             EntidadesSS context = new EntidadesSS();
 
             List<Solicitud> solicitudes;
-            var solicitud = (from s in context.Solicituds
-                             join v in context.Validacions
-                                on s.Id_Validacion equals v.Id
-                             where s.Validacion.Posgrado == false 
-                             && s.Id_Estado == 1
-                             && s.Correo_Solicitante != usuario.Correo
-                             && s.Validacion.Director == true
-                             select new Solicitud
-                             {
-                                 Validacion = v
-                             });
+            var solicitud = from s in context.Solicituds
+                            join v in context.Validacions
+                               on s.Id_Validacion equals v.Id
+                            where s.Validacion.Posgrado == false
+                            && s.Id_Estado == 1
+                            && s.Correo_Solicitante != correo
+                            && s.Validacion.Director == true
+                            select s;
 
             try
             {
@@ -142,6 +132,84 @@ namespace SS.Repositorios.Implementaciones
 
             return solicitudes;
         }
+
+
+        public List<Solicitud> buscarSolicitudesPorDocente(String correo) {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds
+                            where (s.Correo_Solicitante == correo && s.Id_Estado != 1 && s.Id_Estado != 6)
+                            select s;
+
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+
+        }
+
+        public List<Solicitud> buscarSolicitudesPorAdministrador(String correo)
+        {
+            EntidadesSS context = new EntidadesSS();
+
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds
+                             join v in context.Validacions
+                                on s.Id_Validacion equals v.Id
+                             where s.Validacion.Administrador == false
+                             && s.Id_Estado == 1
+                             && s.Correo_Solicitante != correo
+                             && s.Validacion.Subdirector == true
+                             select s;
+
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+        }
+
+
+        public List<Solicitud> buscarSolicitudesPorCoordinador(String correo)
+        {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds
+                            join v in context.Validacions
+                             on s.Id_Validacion equals v.Id
+                            join c in context.Carreras
+                             on s.Id_Carrera equals c.Id
+                            join u in context.Usuarios
+                            on c.Id_Usuario_Coordinador equals u.Id
+
+                            where (s.Correo_Solicitante != correo && s.Id_Estado == 1 && s.Validacion.Coordinador == false
+                            && s.Validacion.Administrador == true && s.Carrera.Usuario.Correo == correo)
+                            select s;
+
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+
+        }
+
     }
 }
 

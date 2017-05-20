@@ -20,6 +20,10 @@ app.config(function ($routeProvider, localStorageServiceProvider) {
          .when('/SS/Solicitud', {
              templateUrl: '../Content/views/solicitud.html',
          })
+         .when('/SS/Solicitud/:id', {
+             templateUrl: '../Content/views/revision-solicitud.html',
+             
+         })
          .when('/SS/Solicitud/Solicitudes', {
              templateUrl: '../Content/views/historial-administrativo.html'
             })
