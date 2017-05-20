@@ -13,7 +13,7 @@
                         <th ng-show="verificacion(loggedUser.Rol)">Revisar</th>
                         <th ng-show="!verificacion(loggedUser.Rol)">Editar</th>
                     </tr>
-                    <tr ng-repeat="notificacion in notificaciones | estado: loggedUser">
+                    <tr ng-repeat="notificacion in notificacioa">
                         <td>{{notificacion.Folio}}</td>
                         <td>{{notificacion.Evento.Nombre}}</td>
                         <td>{{notificacion.Estado.Tipo}}</td>

@@ -6,7 +6,7 @@ using System.Data.Entity;
 using SS.Repositorios.Genericos;
 using SS.Models.Entidades.SS;
 using SS.Repositorios.Interfaces;
-using SSUABC.Repositorios.Predicado;
+
 
 namespace SS.Repositorios.Implementaciones
 {
@@ -34,26 +34,69 @@ namespace SS.Repositorios.Implementaciones
             return solicitudSS;
         }
 
-
-        public List<Solicitud> BuscarSolicitudPorRol(Usuario usuario)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<Solicitud> BuscarSolicitudPorSubDirector(Usuario usuario)
         {
-            SolicitudPredicado solicitudPredicado = new SolicitudPredicado();
+         
             EntidadesSS context = new EntidadesSS();
-            List<Solicitud> solicitudSS;
-            var solicitud = from s in context.Solicituds.Where(solicitudPredicado.SolicitudPorRol(usuario)).Where(solicitudPredicado.Docente(usuario))
-                            select s;
-
+            List<Solicitud> solicitudes;
+            var solicitud = (from s in context.Solicituds
+                             join v in context.Validacions
+                                on s.Id_Validacion equals v.Id
+                             where s.Validacion.Coordinador == false && s.Id_Estado == 1 && s.Correo_Solicitante != usuario.Correo
+                             select new Solicitud
+                             { 
+                                 Validacion = v
+                             });
 
             try
-            {
-                solicitudSS = solicitud.ToList();
+            { 
+                solicitudes = solicitud.ToList();
             }
             catch (Exception ex)
             {
                 return null;
             }
 
-            return solicitudSS;
+            return solicitudes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<Solicitud> BuscarSolicitudPorDirector(Usuario usuario)
+        {
+         
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var solicitud = (from s in context.Solicituds
+                             join v in context.Validacions
+                                on s.Id_Validacion equals v.Id
+                             where s.Validacion.Director == false 
+                             && s.Id_Estado == 1 
+                             && s.Correo_Solicitante != usuario.Correo
+                             && s.Validacion.Administrador == true
+                             select new Solicitud
+                             {
+                                 Validacion = v
+                             });
+
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
         }
 
         /// <summary>
@@ -66,9 +109,39 @@ namespace SS.Repositorios.Implementaciones
         }
 
         /// <summary>
-        /// Buscar una solicitud por rol
+        /// 
         /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public List<Solicitud> BuscarSolicitudPorPosgrado(Usuario usuario)
+        {
+          
+            EntidadesSS context = new EntidadesSS();
 
+            List<Solicitud> solicitudes;
+            var solicitud = (from s in context.Solicituds
+                             join v in context.Validacions
+                                on s.Id_Validacion equals v.Id
+                             where s.Validacion.Posgrado == false 
+                             && s.Id_Estado == 1
+                             && s.Correo_Solicitante != usuario.Correo
+                             && s.Validacion.Director == true
+                             select new Solicitud
+                             {
+                                 Validacion = v
+                             });
+
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+        }
     }
 }
 
