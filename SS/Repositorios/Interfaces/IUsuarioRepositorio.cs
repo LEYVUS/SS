@@ -18,5 +18,12 @@ namespace SS.Repositorios.Interfaces
         /// <param name="correo"></param>
         /// <returns></returns>
         Usuario BuscarPorCorreo(String correo);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Usuario BuscarPorRol(int id);
     }
 }

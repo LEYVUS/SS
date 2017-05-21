@@ -263,7 +263,6 @@
     <Compile Include="Repositorios\Interfaces\IUsuarioRepositorio.cs" />
     <Compile Include="Repositorios\Interfaces\IUsuarioUABCRepositorio.cs" />
     <Compile Include="Repositorios\Interfaces\IValidacionRepositorio.cs" />
-    <Compile Include="Repositorios\Predicados\SolicitudPredicado.cs" />
     <Compile Include="Servicios\CarreraServicio.cs" />
     <Compile Include="Servicios\CategoriaServicio.cs" />
     <Compile Include="Servicios\EstadoServicio.cs" />

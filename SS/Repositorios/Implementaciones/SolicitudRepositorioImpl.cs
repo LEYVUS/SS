@@ -6,7 +6,7 @@ using System.Data.Entity;
 using SS.Repositorios.Genericos;
 using SS.Models.Entidades.SS;
 using SS.Repositorios.Interfaces;
-
+using SS.Models.DTO.Filtro;
 
 namespace SS.Repositorios.Implementaciones
 {
@@ -33,13 +33,15 @@ namespace SS.Repositorios.Implementaciones
 
             return solicitudSS;
         }
-        
+
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorSubDirector(String correo) { 
+        public List<Solicitud> BuscarSolicitudPorSubDirector(SolicitudFiltro filtro) { 
             EntidadesSS context = new EntidadesSS();
             List<Solicitud> solicitudes;
             var solicitud = from s in context.Solicituds
@@ -47,11 +49,20 @@ namespace SS.Repositorios.Implementaciones
                                 on s.Id_Validacion equals v.Id
                              where s.Validacion.Subdirector == false 
                              && s.Id_Estado == 1
-                             && s.Correo_Solicitante != correo
-                             select s;
+                             && s.Correo_Solicitante != filtro.usuario.Correo
+                            orderby(s.Id) ascending
+                            select s ;
+
             try
-            { 
-                solicitudes = solicitud.ToList();
+            {
+                solicitudes = solicitud
+                   .Where(s =>
+                       (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio )
+                   .Where(s =>
+                       (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                   .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                     .ToList();
             }
             catch (Exception ex)
             {
@@ -154,7 +165,7 @@ namespace SS.Repositorios.Implementaciones
 
         }
 
-        public List<Solicitud> buscarSolicitudesPorAdministrador(String correo)
+        public List<Solicitud> buscarSolicitudesPorAdministrador(SolicitudFiltro filtro)
         {
             EntidadesSS context = new EntidadesSS();
 
@@ -164,13 +175,21 @@ namespace SS.Repositorios.Implementaciones
                                 on s.Id_Validacion equals v.Id
                              where s.Validacion.Administrador == false
                              && s.Id_Estado == 1
-                             && s.Correo_Solicitante != correo
+                             && s.Correo_Solicitante != filtro.usuario.Correo
                              && s.Validacion.Subdirector == true
-                             select s;
+                            orderby (s.Id) ascending
+                            select s;
 
             try
             {
-                solicitudes = solicitud.ToList();
+                solicitudes = solicitud
+                   // .Where(s =>
+               //         (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+             //       .Where(s =>
+              //          (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+             //       .Where(s =>
+             //           (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                      .ToList();
             }
             catch (Exception ex)
             {

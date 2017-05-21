@@ -15,6 +15,10 @@ namespace SS.Models.DTO
             this.usuario = usuario;
         }
 
+        public CarreraDTO()
+        {
+        }
+
         public int Id { get; set; }
         public string Nombre { get; set; }
 

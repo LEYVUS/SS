@@ -63,7 +63,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                 }).then (
                         function (respuestaExito) {
                             $scope.carrera = angular.copy(respuestaExito.data);
-
+                            console.log(respuestaExito)
                             ModalService.showModal({
                                 templateUrl: '../../Content/views/editar.html',
                                 controller: "EditarController",
@@ -97,6 +97,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                 .then (
                       function (respuestaExito) {
                           $scope.usuario = angular.copy(respuestaExito.data);
+                          console.log($scope.usuario)
                           ModalService.showModal({
                               templateUrl: '../../Content/views/editar.html',
                               controller: "EditarController",

@@ -6,6 +6,7 @@
         Validacion: { Administrador: false, Coordinador: false, Director: false, Id: "", Posgrado: false, Subdirector: false }
     }
 
+    $scope.hoy = new Date();
     $scope.otroRecurso = false;
     $scope.otraActividad = false;
     $scope.carreras = [];
@@ -100,7 +101,8 @@
      || $scope.solicitudDTO.Recurso_Solicitado.Oficio_Comision || $scope.otroRecurso
      || $scope.solicitudDTO.Recurso_Solicitado.Combustible) && ($scope.solicitudDTO.Actividad.CACEI || $scope.solicitudDTO.Actividad.Licenciatura
              || $scope.solicitudDTO.Actividad.Personal || $scope.solicitudDTO.Actividad.ISO
-             || $scope.solicitudDTO.Actividad.Posgrado || $scope.otraActividad));
+             || $scope.solicitudDTO.Actividad.Posgrado || $scope.otraActividad && $scope.solicitudDTO.Evento.Fecha_Salida > new Date()
+            && $scope.solicitudDTO.Evento.Fecha_Regreso > new Date()));
     };
 
 
@@ -113,10 +115,12 @@
         })
             .then(
                 function (respuestaExito) {
-                    console.log(respuestaExito);
-                    $scope.mensajeDTO = angular.copy(respuestaExito.data.Respuesta);
-
-
+                    mostrarModal(respuestaExito.data.Mensaje)
+                    if (respuestaExito.data.Entidad) {
+                        $location.path('/Inicio');
+                    } else {
+                        $location.path('/Solicitud');
+                    }
                 },
                 function (error) {
                     $rootScope.loggedUser = null;
@@ -125,6 +129,37 @@
                 }
 
             );
+    }
+
+    function mostrarModal(mensaje) {
+        if ($rootScope.modal) {
+            $rootScope.modal = false;
+            ModalService.showModal({
+                templateUrl: '../../Content/views/mensaje.html',
+                controller: "MensajeControlador",
+                inputs: {
+                    mensaje: mensaje
+                }
+            }).then(function (modal) {
+                modal.element.modal();
+                modal.close.then(function (resultado) {
+                    $rootScope.modal = true;
+                });
+            });
+        }
+
+    }
+
+});
+
+appController.controller('MensajeControlador', function ($scope, close, mensaje, $rootScope) {
+    $scope.message = mensaje;
+    $scope.close = function (resultado) {
+        close(resultado, 400);
+    };
+
+    $scope.activarModal = function () {
+        $rootScope.modal = true;
     }
 
 });

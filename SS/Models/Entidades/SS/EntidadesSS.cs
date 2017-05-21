@@ -20,7 +20,7 @@ namespace SS.Models.Entidades.SS
         public virtual DbSet<Recurso> Recursoes { get; set; }
         public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<Solicitud> Solicituds { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Validacion> Validacions { get; set; }
 

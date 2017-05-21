@@ -2,7 +2,7 @@
     <div class="container" />
     <div myheader></div>
     <div class="row">
-        <div mymenu></div>
+        <div style="margin-left:40px; margin-right:20px; width:700px" mymenu></div>
         <form name="solicitud">
             <div class="col-lg-offset-1 col-sm-8 col-md-8 col-lg-8" name="myForm">
                 <div class="row">
@@ -25,88 +25,97 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-6 col-lg-6">
-                        <label for="nombre-evento">Nombre del evento:</label>
-                        <input type="text" name="eventoNombre" ng-model="solicitudDTO.Evento.Nombre" class="form-control" required>
-                        <div ng-show="solicitud.eventoNombre.$invalid && solicitud.eventoNombre.$dirty" role="alert">
-                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6 col-lg-6">
-                        <label for="costo-evento">Lugar del evento:</label>
-                        <input type="text" name="eventoLugar" ng-model="solicitudDTO.Evento.Lugar" class="form-control" required>
-                        <div ng-show="solicitud.eventoLugar.$invalid && solicitud.eventoLugar.$dirty" role="alert">
-                            <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6 col-lg-6">
-                        <label for="costo-evento">Costo del evento:</label>
-                        <input type="number" ng-model="solicitudDTO.Evento.Costo" class="form-control" min="0" placeholder="$">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="dropdown">
-                            <label for="carrera">Carrera</label>
-                            <br>
-                            <select name="carrera" ng-model="solicitudDTO.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera" required></select>
-                            <div ng-show="solicitud.carrera.$invalid && solicitud.carrera.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <div class="dropdown">
-                            <label for="categoria">Categor&iacute;a</label>
-                            <br>
-                            <select name="categoria" ng-model="solicitudDTO.Categoria" ng-options="categoria.Nombre for categoria in categorias" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Categoria" required></select>
-                            <div ng-show="solicitud.categoria.$invalid && solicitud.categoria.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="fecha">Fecha de salida</label>
-                            <input type="date" name="fechaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required>
-                            <div ng-show="solicitud.fechaSalida.$invalid && solicitud.fechaSalida.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="fecha">Hora de salida</label>
-                            <input type="time" name="horaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required>
-                            <div ng-show="solicitud.horaSalida.$invalid && solicitud.horaSalida.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="fecha">Fecha de llegada</label>
-                            <input type="date" name="fechaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
-                            <div ng-show="solicitud.fechaLlegada.$invalid && solicitud.fechaLlegada.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="form-group">
-                            <label for="fecha">Hora de llegada</label>
-                            <input type="time" name="horaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
-                            <div ng-show="solicitud.horaLlegada.$invalid && solicitud.horaLlegada.$dirty" role="alert">
-                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-        </form>
+              
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-6">
+                            <label for="nombre-evento">Nombre del evento:</label>
+                            <input type="text" name="eventoNombre" ng-model="solicitudDTO.Evento.Nombre" class="form-control" required>
+                            <div ng-show="solicitud.eventoNombre.$invalid && solicitud.eventoNombre.$dirty" role="alert">
+                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6">
+                            <label for="costo-evento">Lugar del evento:</label>
+                            <input type="text" name="eventoLugar" ng-model="solicitudDTO.Evento.Lugar" class="form-control" required>
+                            <div ng-show="solicitud.eventoLugar.$invalid && solicitud.eventoLugar.$dirty" role="alert">
+                                <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-6">
+                            <label for="costo-evento">Costo del evento:</label>
+                            <input type="number" ng-model="solicitudDTO.Evento.Costo" class="form-control" min="0" placeholder="$">
+                        </div>
+                    </div>
+                   
+
+                    <div class="row">
+                        <div class="col-md-6 col-md-6">
+                            <div class="dropdown">
+                                <label for="carrera">Carrera</label>
+                                <br>
+                                <select name="carrera" ng-model="solicitudDTO.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera" required></select>
+                                <div ng-show="solicitud.carrera.$invalid && solicitud.carrera.$dirty" role="alert">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-6">
+                            <div class="dropdown">
+                                <label for="categoria">Categor&iacute;a</label>
+                                <br>
+                                <select name="categoria" ng-model="solicitudDTO.Categoria" ng-options="categoria.Nombre for categoria in categorias" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Categoria" required></select>
+                                <div ng-show="solicitud.categoria.$invalid && solicitud.categoria.$dirty" role="alert">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+               <div style="margin-bottom:50px;"></div>
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="fecha">Fecha de salida</label>
+                                <input type="date" name="fechaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required>
+                                <div ng-show="solicitud.fechaSalida.$invalid && solicitud.fechaSalida.$dirty" role="alert" ng-min="hoy">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="fecha">Hora de salida</label>
+                                <input type="time" name="horaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required ng-min="hoy">
+                                <div ng-show="solicitud.horaSalida.$invalid && solicitud.horaSalida.$dirty" role="alert">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="fecha">Fecha de llegada</label>
+                                <input type="date" name="fechaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
+                                <div ng-show="solicitud.fechaLlegada.$invalid && solicitud.fechaLlegada.$dirty" role="alert">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="fecha">Hora de llegada</label>
+                                <input type="time" name="horaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
+                                <div ng-show="solicitud.horaLlegada.$invalid && solicitud.horaLlegada.$dirty" role="alert">
+                                    <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+</form>
+        <div style="margin-bottom:50px;"></div>
+
         <label>Recursos a solicitar</label>
         <div>
             <div class="row">
@@ -138,7 +147,7 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <label for="transporte">Trasporte</label>
-                        <input type="number" name="transporte" ng-model="solicitudDTO.Recurso_Solicitado.Transporte" class="form-control" placeholder="Cantidad de personas ...">
+                        <input type="number" name="transporte" min="0"ng-model="solicitudDTO.Recurso_Solicitado.Transporte" class="form-control" placeholder="Cantidad de personas ...">
                         <div ng-show="solicitud.transporte.$invalid && solicitud.transporte.$dirty" role="alert">
                             <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
                         </div>
@@ -197,6 +206,7 @@
             </div>
 
         </div>
-        <div myfooter></div>
+       
     </div>
+    <div style="margin-left:150px;" myfooter></div>
  </div>

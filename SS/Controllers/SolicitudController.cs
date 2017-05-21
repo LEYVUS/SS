@@ -1,4 +1,5 @@
 ﻿using SS.Models.DTO;
+using SS.Models.DTO.Filtro;
 using SS.Servicios;
 using System.Web.Http;
 
@@ -7,6 +8,8 @@ namespace SS.Controllers
     public class SolicitudController : ApiController
     {
         SolicitudServicio servicioSolicitud = new SolicitudServicio();
+
+
         /// <summary>
         /// Crea una Solicitud
         /// </summary>
@@ -58,12 +61,16 @@ namespace SS.Controllers
 
 
         [Authorize]
-        [Route("SS/Solicitud/Rol")]
+        [Route("SS/Solicitud/Rol/{paginacion:int}")]
         [HttpPost]
-        public IHttpActionResult BuscarSolicitudesPorRol([FromBody]UsuarioDTO usuario)
+        public IHttpActionResult BuscarSolicitudesPorRol([FromBody]SolicitudFiltro filtro, int paginacion )
         {
-           return Ok(servicioSolicitud.BuscarSolicitudesPorRols(usuario)); 
+           return Ok(servicioSolicitud.BuscarSolicitudesPorRols(filtro, paginacion)); 
         }
+
+
+
+
 
     }
 }

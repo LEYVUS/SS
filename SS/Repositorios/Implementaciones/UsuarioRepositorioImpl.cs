@@ -50,6 +50,30 @@ namespace SS.Repositorios.Implementaciones
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Usuario BuscarPorRol(int id)
+        {
+            EntidadesSS context = new EntidadesSS();
+            Usuario usuarioUABC;
+            var usuario = from u in context.Usuarios
+                          where u.Id_Rol == id
+                          select u;
+            try
+            {
+                usuarioUABC = usuario.First<Usuario>();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return usuarioUABC;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="entidad"></param>
         public override void Modificar(Usuario entidad)
         {

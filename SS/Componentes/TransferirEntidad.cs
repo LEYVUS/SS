@@ -85,7 +85,7 @@ namespace SS.Componentes
             solicitud.URL_Reporte = null;
             solicitud.Id_Carrera = solicitudDTO.Carrera.Id;
             solicitud.Id_Categoria = solicitudDTO.Categoria.Id;
-            solicitud.Id_Estado = 1;
+            solicitud.Id_Estado = (int)EstadoEnum.Proceso;
             return solicitud;
         }
     }
