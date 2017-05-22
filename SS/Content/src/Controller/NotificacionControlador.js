@@ -8,7 +8,7 @@
     $scope.Filtro = { usuario: '' }
 
     $scope.notificacionesListar = function (usuario, paginacion) {
-        console.log(usuario)
+       
         $scope.Filtro.usuario = usuario;
        
         $http({
@@ -26,7 +26,7 @@
               tokenServicio.logOut();
           }
       );
-        console.log($scope.Filtro)
+     
         $http({
             method: 'post',
             url: servicioURL + "SS/Solicitud/Rol/" + paginacion,
@@ -50,7 +50,7 @@
     function contarNotificaciones(notificacion) {
         $scope.pages = [];
         var longitud = Math.ceil(notificacion/ 10);
-       console.log(longitud)
+      
         for (var i = 1; i <= longitud; i++) {
             $scope.pages.push({
                 no: i

@@ -1,5 +1,6 @@
 ﻿using SS.Models.DTO;
 using SS.Models.DTO.Filtro;
+using SS.Models.Entidades.SS;
 using SS.Servicios;
 using System.Web.Http;
 
@@ -54,9 +55,25 @@ namespace SS.Controllers
         [Authorize]
         [Route("SS/Solicitud/{id:int}")]
         [HttpGet]
-        public IHttpActionResult ListarSolicitudPorId([FromBody] int idUsuarioDTO)
+        public IHttpActionResult SolicitudPorId( int id)
         {
-            return Ok(servicioSolicitud.BuscarSolicitudPorId(idUsuarioDTO));
+            return Ok(servicioSolicitud.BuscarSolicitudPorId(id));
+        }
+
+        [Authorize]
+        [Route("SS/Solicitud/Aceptar/{id:int}")]
+        [HttpPost]
+        public IHttpActionResult AceptarSolicitud([FromBody]UsuarioDTO usuario,int id)
+        {
+            return Ok(servicioSolicitud.AceptarSolicitud(usuario,id));
+        }
+
+        [Authorize]
+        [Route("SS/Solicitud/Rechazar")]
+        [HttpPost]
+        public IHttpActionResult RechazarSolicitud([FromBody]SolicitudDTO solicitud)
+        {
+            return Ok(servicioSolicitud.RechazarSolicitud(solicitud));
         }
 
 

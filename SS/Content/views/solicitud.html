@@ -78,7 +78,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="fecha">Fecha de salida</label>
-                                <input type="date" name="fechaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required>
+                                <input type="date" name="fechaSalida" ng-model="solicitudDTO.Evento.Fecha_Hora_Salida" class="form-control" required>
                                 <div ng-show="solicitud.fechaSalida.$invalid && solicitud.fechaSalida.$dirty" role="alert" ng-min="hoy">
                                     <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
                                 </div>
@@ -87,7 +87,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="fecha">Hora de salida</label>
-                                <input type="time" name="horaSalida" ng-model="solicitudDTO.Evento.Fecha_Salida" class="form-control" required ng-min="hoy">
+                                <input type="time" name="horaSalida" ng-model="solicitudDTO.Evento.Fecha_Hora_Salida" class="form-control" required ng-min="hoy">
                                 <div ng-show="solicitud.horaSalida.$invalid && solicitud.horaSalida.$dirty" role="alert">
                                     <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
                                 </div>
@@ -96,7 +96,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="fecha">Fecha de llegada</label>
-                                <input type="date" name="fechaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
+                                <input type="date" name="fechaLlegada" ng-model="solicitudDTO.Evento.Fecha_Hora_Regreso" class="form-control" required>
                                 <div ng-show="solicitud.fechaLlegada.$invalid && solicitud.fechaLlegada.$dirty" role="alert">
                                     <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
                                 </div>
@@ -105,7 +105,7 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="fecha">Hora de llegada</label>
-                                <input type="time" name="horaLlegada" ng-model="solicitudDTO.Evento.Fecha_Regreso" class="form-control" required>
+                                <input type="time" name="horaLlegada" ng-model="solicitudDTO.Evento.Fecha_Hora_Regreso" class="form-control" required>
                                 <div ng-show="solicitud.horaLlegada.$invalid && solicitud.horaLlegada.$dirty" role="alert">
                                     <div class="alert alert-danger"> <strong>¡ERROR!</strong> Este campo es obligatorio</div>
                                 </div>

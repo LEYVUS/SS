@@ -6,7 +6,7 @@ appController.controller("loginCtrl", function ($scope, $location, $rootScope, M
 
         if (localStorageService.get('user') == null && $rootScope.modal) {
             loginServicio.ObtenerToken($scope.usuarioDTO).then(function (data) {
-                  loginServicio.ObtenerUsuarioLogeado().then(function (usuario) {
+                loginServicio.ObtenerUsuarioLogeado().then(function (usuario) {
                         localStorageService.set('user', angular.copy(usuario));
                         $location.path('/SS/Inicio');
                   }, function (error) {

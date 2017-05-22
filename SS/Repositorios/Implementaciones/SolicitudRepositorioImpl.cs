@@ -77,7 +77,7 @@ namespace SS.Repositorios.Implementaciones
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorDirector(String correo)
+        public List<Solicitud> BuscarSolicitudPorDirector(SolicitudFiltro filtro)
         {
          
             EntidadesSS context = new EntidadesSS();
@@ -87,13 +87,20 @@ namespace SS.Repositorios.Implementaciones
                                on s.Id_Validacion equals v.Id
                             where s.Validacion.Director == false
                             && s.Id_Estado == 1
-                            && s.Correo_Solicitante != correo
+                            && s.Correo_Solicitante != filtro.usuario.Correo
                             && s.Validacion.Administrador == true
                             select s;
 
             try
             {
-                solicitudes = solicitud.ToList();
+                solicitudes = solicitud
+                   .Where(s =>
+                       (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                   .Where(s =>
+                       (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                   .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                     .ToList();
             }
             catch (Exception ex)
             {
@@ -107,9 +114,10 @@ namespace SS.Repositorios.Implementaciones
         /// Mmodifica la Solicitud
         /// </summary>
         /// <param name="entity"></param>
-        public override void Modificar(Solicitud entity)
+        public override void Modificar(Solicitud entidad)
         {
-            throw new NotImplementedException();
+            context.Entry(entidad).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         /// <summary>
@@ -117,7 +125,7 @@ namespace SS.Repositorios.Implementaciones
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<Solicitud> BuscarSolicitudPorPosgrado(String correo)
+        public List<Solicitud> BuscarSolicitudPorPosgrado(SolicitudFiltro filtro)
         {
           
             EntidadesSS context = new EntidadesSS();
@@ -126,15 +134,25 @@ namespace SS.Repositorios.Implementaciones
             var solicitud = from s in context.Solicituds
                             join v in context.Validacions
                                on s.Id_Validacion equals v.Id
+                            join a in context.Actividads
+                                on s.Id_Actividad equals a.Id
                             where s.Validacion.Posgrado == false
                             && s.Id_Estado == 1
-                            && s.Correo_Solicitante != correo
+                            && s.Correo_Solicitante != filtro.usuario.Correo
                             && s.Validacion.Director == true
+                            && s.Actividad.Posgrado ==true
                             select s;
 
             try
             {
-                solicitudes = solicitud.ToList();
+                solicitudes = solicitud
+                   .Where(s =>
+                       (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                   .Where(s =>
+                       (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                   .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                     .ToList();
             }
             catch (Exception ex)
             {
@@ -145,16 +163,23 @@ namespace SS.Repositorios.Implementaciones
         }
 
 
-        public List<Solicitud> buscarSolicitudesPorDocente(String correo) {
+        public List<Solicitud> buscarSolicitudesPorDocente(SolicitudFiltro filtro) {
             EntidadesSS context = new EntidadesSS();
             List<Solicitud> solicitudes;
             var solicitud = from s in context.Solicituds
-                            where (s.Correo_Solicitante == correo && s.Id_Estado != 1 && s.Id_Estado != 6)
+                            where (s.Correo_Solicitante == filtro.usuario.Correo && s.Id_Estado != 1 && s.Id_Estado != 6)
                             select s;
 
             try
             {
-                solicitudes = solicitud.ToList();
+                solicitudes = solicitud
+                    .Where(s =>
+                        (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                    .Where(s =>
+                        (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                    .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                      .ToList();
             }
             catch (Exception ex)
             {
@@ -183,12 +208,12 @@ namespace SS.Repositorios.Implementaciones
             try
             {
                 solicitudes = solicitud
-                   // .Where(s =>
-               //         (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
-             //       .Where(s =>
-              //          (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
-             //       .Where(s =>
-             //           (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                    .Where(s =>
+                        (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                    .Where(s =>
+                        (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                    .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
                       .ToList();
             }
             catch (Exception ex)
@@ -200,7 +225,7 @@ namespace SS.Repositorios.Implementaciones
         }
 
 
-        public List<Solicitud> buscarSolicitudesPorCoordinador(String correo)
+        public List<Solicitud> buscarSolicitudesPorCoordinador(SolicitudFiltro filtro)
         {
             EntidadesSS context = new EntidadesSS();
             List<Solicitud> solicitudes;
@@ -212,13 +237,22 @@ namespace SS.Repositorios.Implementaciones
                             join u in context.Usuarios
                             on c.Id_Usuario_Coordinador equals u.Id
 
-                            where (s.Correo_Solicitante != correo && s.Id_Estado == 1 && s.Validacion.Coordinador == false
-                            && s.Validacion.Administrador == true && s.Carrera.Usuario.Correo == correo)
+                            where (s.Correo_Solicitante != filtro.usuario.Correo && 
+                                   s.Id_Estado == 1 && 
+                                   s.Validacion.Coordinador == false &&
+                                   s.Validacion.Administrador == true 
+                                  && s.Carrera.Usuario.Correo == filtro.usuario.Correo)
                             select s;
-
             try
             {
-                solicitudes = solicitud.ToList();
+                solicitudes = solicitud
+                     .Where(s =>
+                         (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                     .Where(s =>
+                         (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                     .Where(s =>
+                        (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                       .ToList();
             }
             catch (Exception ex)
             {

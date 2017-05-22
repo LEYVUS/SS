@@ -21,6 +21,7 @@ namespace SS.Servicios
         {
             solicitudRepositorio = new SolicitudRepositorioImpl(new EntidadesSS());
             usuarioUABCRepositorio = new UsuarioUABCRepositorioImpl();
+            usuarioRepositorio = new UsuarioRepositorioImpl(new EntidadesSS());
         }
 
  
@@ -48,10 +49,89 @@ namespace SS.Servicios
         /// <returns></returns>
         public SolicitudDTO BuscarSolicitudPorId(int id)
         {
-            SolicitudDTO solicitudDTO = new SolicitudDTO();
+           
             Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
-           solicitudDTO =  TransferirDTO.TransferirSolicitud(solicitud);
+            SolicitudDTO solicitudDTO =  TransferirDTO.TransferirSolicitud(solicitud);
+
             return solicitudDTO;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public MensajeDTO AceptarSolicitud(UsuarioDTO usuario,int id )
+        {
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
+            CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
+            Usuario destinatario = null;
+            bool solicitudTerminadaRevision = false;
+
+            switch (usuario.Rol.Descripcion)
+                {
+                    case "Coordinador":
+                        solicitud.Validacion.Coordinador = true;
+                     destinatario = usuarioRepositorio.BuscarPorRol((int)RolEnum.Director);
+                    break;
+
+                    case "Posgrado":
+                        solicitud.Validacion.Posgrado = true;
+                        solicitudTerminadaRevision = true;
+                    break;
+
+                    case "Administradora":
+                        solicitud.Validacion.Administrador = true;
+                        destinatario = usuarioRepositorio.BuscarPorRol((int)RolEnum.Coordinador);
+                        break;
+ 
+                    case "Subdirector":
+                        solicitud.Validacion.Subdirector = true;
+                        destinatario = usuarioRepositorio.BuscarPorRol((int)RolEnum.Administradora);
+                        break;
+
+                    case "Director":
+                        solicitud.Validacion.Director = true;
+                        if(solicitud.Actividad.Posgrado == true)
+                        {
+                            destinatario = usuarioRepositorio.BuscarPorRol((int)RolEnum.Posgrado);
+
+                        }else
+                        {
+                            solicitudTerminadaRevision = true;
+                        }
+                      break;
+            }
+
+            if (solicitudTerminadaRevision)
+            {
+                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", solicitud.Correo_Solicitante);
+            }
+            
+                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", destinatario.Correo);
+                solicitudRepositorio.Modificar(solicitud);
+                return MensajeComponente.mensaje("Se ha aprobado correctamente", true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public MensajeDTO RechazarSolicitud( SolicitudDTO solicitudDTO)
+        {
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(solicitudDTO.Id);
+            solicitud.Comentario_Rechazado = solicitudDTO.Comentario_Rechazado;
+            solicitud.Id_Estado = (int)EstadoEnum.Rechazado;
+       //     Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
+        //    CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
+       //     correo.MandarCorreo("Sistema Solicitud de Salida" + "Se ha rechazado una solicitud", "Solicitud Pendiente", solicitud.Correo_Solicitante);
+            solicitudRepositorio.Modificar(solicitud);
+            return MensajeComponente.mensaje("Se ha aprobado correctamente", true);
+            
         }
 
         /// <summary>
@@ -76,14 +156,14 @@ namespace SS.Servicios
                 switch (filtro.usuario.Rol.Descripcion)
                 {
                     case "Coordinador":
-                        solicitudes = solicitudRepositorio.buscarSolicitudesPorCoordinador(filtro.usuario.Correo);
+                        solicitudes = solicitudRepositorio.buscarSolicitudesPorCoordinador(filtro);
                         break;
 
                     case "Posgrado":
-                        solicitudes = solicitudRepositorio.BuscarSolicitudPorPosgrado(filtro.usuario.Correo);
+                        solicitudes = solicitudRepositorio.BuscarSolicitudPorPosgrado(filtro);
                         break;
 
-                    case "Administrador":
+                    case "Administradora":
                         solicitudes = solicitudRepositorio.buscarSolicitudesPorAdministrador(filtro);
                         break;
 
@@ -92,7 +172,7 @@ namespace SS.Servicios
                         break;
 
                     case "Director":
-                        solicitudes = solicitudRepositorio.BuscarSolicitudPorDirector(filtro.usuario.Correo);
+                        solicitudes = solicitudRepositorio.BuscarSolicitudPorDirector(filtro);
                         break;
                     default:
                         solicitudes = new List<Solicitud>();
@@ -103,7 +183,7 @@ namespace SS.Servicios
             }
             else
             {
-                solicitudes = solicitudRepositorio.buscarSolicitudesPorDocente(filtro.usuario.Correo);
+                solicitudes = solicitudRepositorio.buscarSolicitudesPorDocente(filtro);
             }
 
             foreach (Solicitud solicitud in solicitudes)
@@ -131,19 +211,27 @@ namespace SS.Servicios
                 //Busca credecniales del usuario logeado
                 Models.Entidades.UABC.Usuario usuario = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
 
+                Usuario subdirector = usuarioRepositorio.BuscarPorRol((int)RolEnum.Subdirector);
                 //Busca al proximo usuario que su rol es coordinador
                 Usuario usarioSS = usuarioRepositorio.BuscarPorRol((int)RolEnum.Subdirector);
 
                 //Envia el correo al sigueinte usuario
                 CorreoComponente correo = new CorreoComponente(usuario.Email, usuario.Contraseña);
-                solicitudRepositorio.Agregar(solicitud);
-                correo.MandarCorreo("Sistema Solicitud de Salida/n" + "Tiene una solicitud pendiente por revisar", "Solicitud Pendiente", "daniel.ballesteros@uabc.edu.mx");
+                if(correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", subdirector.Correo))
+                {
+                    solicitudRepositorio.Agregar(solicitud);
+                    return MensajeComponente.mensaje("Error al crear la solicitud", false);       
+                }
+
                 return MensajeComponente.mensaje("Solicitud creada exitosamente", true);
             }
             return MensajeComponente.mensaje("Error al crear la solicitud", false);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<SolicitudDTO> BuscarTodos()
         {
             List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
@@ -158,6 +246,12 @@ namespace SS.Servicios
             return solicitudesDTO;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="solicitudDTO"></param>
+        /// <returns></returns>
         private bool SolicitudValida(SolicitudDTO solicitudDTO)
         {
             if (solicitudDTO != null)

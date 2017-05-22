@@ -11,6 +11,8 @@
     $scope.otraActividad = false;
     $scope.carreras = [];
     $scope.categorias = [];
+    $scope.fechaSalida = new Date();
+    $scope.fechaRegreso = new Date();
 
 
     $scope.obtenerValores = function () {
@@ -81,6 +83,7 @@
     $scope.mostrarSolicitud = function () {
         var id = $routeParams.id;
 
+        
         $http({
             method: 'get',
             url: servicioURL + "SS/Solicitud/ " + id,
@@ -89,7 +92,15 @@
         .then(
         function(respuestaExito){
             $scope.solicitudDTO = angular.copy(respuestaExito.data);
-            console.log(respuestaExito)
+            var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Salida.split('-');
+            var dia = fechaSalida[2].split('T');
+            var horaSalida = dia[1].split(':');
+            $scope.fechaSalida = new Date(fechaSalida[0], fechaSalida[1], dia[0], horaSalida[0], horaSalida[1], horaSalida[2], '00');
+            var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Regreso.split('-');
+            var dia = fechaSalida[2].split('T');
+            var horaSalida = dia[1].split(':');
+            $scope.fechaRegreso = new Date(fechaSalida[0], fechaSalida[1], dia[0], horaSalida[0], horaSalida[1], horaSalida[2], '00');
+
         },
                     function (respuestaError) {
                         console.error('Error al buscar la  solicitud')
@@ -107,6 +118,7 @@
 
 
     $scope.agregarSolicitud = function () {
+  
         $http({
             method: 'post',
             url: servicioURL + "SS/Solicitud",
@@ -119,7 +131,7 @@
                     if (respuestaExito.data.Entidad) {
                         $location.path('/Inicio');
                     } else {
-                        $location.path('/Solicitud');
+                        mostrarModal(respuestaExito.data.Mensaje)
                     }
                 },
                 function (error) {
@@ -128,6 +140,54 @@
                     tokenServicio.logOut();
                 }
 
+            );
+    }
+
+    $scope.aceptar = function (usuario,id) {
+        $http({
+            method: 'post',
+            url: servicioURL + "SS/Solicitud/Aceptar/" + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: usuario
+        })
+            .then(
+                function (respuestaExito) {
+                    mostrarModal(respuestaExito.data.Mensaje)
+                    if (respuestaExito.data.Entidad) {
+                        $location.path('/Inicio');
+                    } else {
+                        mostrarModal(respuestaExito.data.Mensaje)
+                    }
+                },
+                function (error) {
+                    $rootScope.loggedUser = null;
+                    $location.path('/login');
+                    tokenServicio.logOut();
+                }
+            );
+    }
+
+    $scope.rechazar = function () {
+        $http({
+            method: 'post',
+            url: servicioURL + "SS/Solicitud/Rechazar",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: $scope.solicitudDTO
+        })
+            .then(
+                function (respuestaExito) {
+                    mostrarModal(respuestaExito.data.Mensaje)
+                    if (respuestaExito.data.Entidad) {
+                        $location.path('/Inicio');
+                    } else {
+                        mostrarModal(respuestaExito.data.Mensaje)
+                    }
+                },
+                function (error) {
+                    $rootScope.loggedUser = null;
+                    $location.path('/login');
+                    tokenServicio.logOut();
+                }
             );
     }
 

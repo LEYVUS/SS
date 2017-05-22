@@ -53,7 +53,7 @@ namespace SS.Componentes
             EstadoDTO estadoDTO = new EstadoDTO(solicitud.Estado.Id, solicitud.Estado.Tipo);
 
             SolicitudDTO solicitudDTO = new SolicitudDTO(solicitud.Correo_Solicitante, solicitud.Id, solicitud.Folio, solicitud.Nombre_Solicitante, solicitud.Numero_Empleado,
-             categoriaDTO, carreraDTO, eventoDTO, recursoDTO, actividadDTO, validacionDTO, estadoDTO, solicitud.Fecha_Creacion, solicitud.Fecha_Modificacion);
+             categoriaDTO, carreraDTO, eventoDTO, recursoDTO, actividadDTO, validacionDTO, estadoDTO, solicitud.Fecha_Creacion, solicitud.Fecha_Modificacion,solicitud.Comentario_Rechazado);
 
 
             return solicitudDTO;

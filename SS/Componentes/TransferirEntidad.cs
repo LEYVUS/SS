@@ -66,6 +66,7 @@ namespace SS.Componentes
             solicitud.Evento.Nombre = solicitudDTO.Evento.Nombre;
             solicitud.Evento.Fecha_Hora_Salida = solicitudDTO.Evento.Fecha_Hora_Salida;
             solicitud.Evento.Fecha_Hora_Regreso = solicitudDTO.Evento.Fecha_Hora_Regreso;
+            solicitud.Evento.Costo = solicitudDTO.Evento.Costo;
 
             //Recurso
             //solicitud.Recurso.Id = solicitudDTO.Recurso_Solicitado.Id;

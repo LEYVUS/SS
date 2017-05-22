@@ -11,10 +11,10 @@ namespace SS.Repositorios.Interfaces
         interface ISolicitudRepositorio
         {
             List<Solicitud> BuscarSolicitudPorSubDirector(SolicitudFiltro filtro);
-            List<Solicitud> BuscarSolicitudPorDirector(String correo);
-            List<Solicitud> BuscarSolicitudPorPosgrado(String correo);
-            List<Solicitud> buscarSolicitudesPorCoordinador(String correo);
-            List<Solicitud> buscarSolicitudesPorDocente(String correo);
+            List<Solicitud> BuscarSolicitudPorDirector(SolicitudFiltro filtro);
+            List<Solicitud> BuscarSolicitudPorPosgrado(SolicitudFiltro filtro);
+            List<Solicitud> buscarSolicitudesPorCoordinador(SolicitudFiltro filtro);
+            List<Solicitud> buscarSolicitudesPorDocente(SolicitudFiltro filtro);
             List<Solicitud> buscarSolicitudesPorAdministrador(SolicitudFiltro filtro);
     }
 }

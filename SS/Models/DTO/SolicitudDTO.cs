@@ -15,7 +15,7 @@ namespace SS.Models.DTO
 
         }
 
-        public SolicitudDTO(string correo_Solicitante, int id, string folio, string nombre_Solicitante, int numero_Empleado, CategoriaDTO categoriaDTO, CarreraDTO carreraDTO, EventoDTO eventoDTO, RecursoDTO recursoDTO, ActividadDTO actividadDTO, ValidacionDTO validacionDTO, EstadoDTO estado, DateTime fecha_Creacion, DateTime fecha_Modificacion)
+        public SolicitudDTO(string correo_Solicitante, int id, string folio, string nombre_Solicitante, int numero_Empleado, CategoriaDTO categoriaDTO, CarreraDTO carreraDTO, EventoDTO eventoDTO, RecursoDTO recursoDTO, ActividadDTO actividadDTO, ValidacionDTO validacionDTO, EstadoDTO estado, DateTime fecha_Creacion, DateTime fecha_Modificacion, string Comentario_Rechazo)
         {
             Correo_Solicitante = correo_Solicitante;
             Id = id;
@@ -31,6 +31,7 @@ namespace SS.Models.DTO
             this.Estado = estado;
             Fecha_Creacion = fecha_Creacion;
             Fecha_Modificacion = fecha_Modificacion;
+            this.Comentario_Rechazado = Comentario_Rechazo;
         }
 
         public int Id { get; set; }
