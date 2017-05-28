@@ -23,9 +23,9 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li  style="width:150px; "ng-show="FiltroR != 'Todo'"          ng-click="FiltroR = 'Todo'"><a  href="">Todo</a></li>
-                                <li  style="width:150px; " ng-show="FiltroR != 'Académico'"     ng-click="FiltroR = 'Académico'" ><a href="">Acad&eacutemico</a></li>
-                                <li style="width:150px; "ng-show="FiltroR != 'Administrador'" ng-click="FiltroR = 'Administrador'"><a href="">Administrador</a></li>
+                                <li  style="width:150px;" ng-show="FiltroR != 'Todo'"          ng-click="FiltroR = 'Todo'"><a  href="">Todo</a></li>
+                                <li  style="width:150px;" ng-show="FiltroR != 'Académico'"     ng-click="FiltroR = 'Académico'" ><a href="">Acad&eacutemico</a></li>
+                                <li style="width:150px;"  ng-show="FiltroR != 'Administrador'" ng-click="FiltroR = 'Administrador'"><a href="">Administrador</a></li>
                             </ul>
                         </div>
                     </th>
@@ -42,9 +42,10 @@
                     </th>
                     <th></th>
                     </thead>
-
+                
                     <tbody>
                         <tr ng-repeat="usuarioDTO in usuarios | nombre :FiltroR | descripcion :FiltroD ">
+             
                             <td style="width:300px; text-align:center">{{usuarioDTO.Correo}}</td>
                             <td style="width:200px; text-align:center">{{usuarioDTO.Rol.Nombre}}</td>
                             <td style="width:200px; text-align:center">{{usuarioDTO.Rol.Descripcion}}</td>

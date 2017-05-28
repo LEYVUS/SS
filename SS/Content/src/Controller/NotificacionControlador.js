@@ -36,8 +36,7 @@
             .then(
                 function (respuestaExito) {
                     contarNotificaciones(respuestaExito.data.largo);
-                    $scope.notificaciones = angular.copy(respuestaExito.data.Respuesta.Entidad);
-                    
+                    $scope.notificaciones = angular.copy(respuestaExito.data.Respuesta.Entidad);   
                 },
                 function (respuestaError) {
                     $rootScope.loggedUser = null;
@@ -49,6 +48,7 @@
 
     function contarNotificaciones(notificacion) {
         $scope.pages = [];
+        $rootScope.noNotificaciones = notificacion;
         var longitud = Math.ceil(notificacion/ 10);
       
         for (var i = 1; i <= longitud; i++) {

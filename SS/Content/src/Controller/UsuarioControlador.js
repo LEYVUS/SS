@@ -26,6 +26,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
         }).then(
                 function (respuestaExito) {
                     $scope.usuarios = angular.copy(respuestaExito.data);
+                 
                 },
                 function (respuestaError) {
                     $rootScope.loggedUser = null;
@@ -42,7 +43,8 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
     ///
 
     $scope.mostrarOpciones = function (usuarioDTO) {
-        if ($rootScope.loggedUser!= null && $rootScope.loggedUser.Correo === usuarioDTO.Correo) {
+        console.log($rootScope.loggedUser.Correo)
+        if ($rootScope.loggedUser!= null && $rootScope.loggedUser.Correo == usuarioDTO.Correo) {
             return false;
         }
         return true;
@@ -50,9 +52,8 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
 
     ///
 
-
     $scope.buscarUsuario = function (Id, Rol) {
-      
+   
         if ($rootScope.modal) {
             $rootScope.modal = false;
             if (Rol === 'Coordinador') {
@@ -63,7 +64,6 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                 }).then (
                         function (respuestaExito) {
                             $scope.carrera = angular.copy(respuestaExito.data);
-                            console.log(respuestaExito)
                             ModalService.showModal({
                                 templateUrl: '../../Content/views/editar.html',
                                 controller: "EditarController",
@@ -83,7 +83,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                                     }).then(function () {
                                         location.reload();
                                     }, function (error) {
-                                        mostrarModal(error.data.ExceptionMessage)
+                                        mostrarModal(error.data.ExceptionMessage);
                                     });
                                 });
                             });

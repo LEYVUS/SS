@@ -25,6 +25,7 @@ namespace SS.Models.DTO
 
         public UsuarioDTO(int id,string nombre, string correo, RolDTO rol)
         {
+            Id = id;
             Nombre = nombre;
             Correo = correo;
             Rol = rol;

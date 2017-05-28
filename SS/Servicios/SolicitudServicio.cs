@@ -65,7 +65,7 @@ namespace SS.Servicios
         public MensajeDTO AceptarSolicitud(UsuarioDTO usuario,int id )
         {
             Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
-            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(usuario.Correo);
             CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
             Usuario destinatario = null;
             bool solicitudTerminadaRevision = false;
@@ -107,10 +107,13 @@ namespace SS.Servicios
 
             if (solicitudTerminadaRevision)
             {
-                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", solicitud.Correo_Solicitante);
+                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud aceptada",
+                    "Solicitud Aceptada", solicitud.Correo_Solicitante);
+            }else
+            {
+                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar. Solicitud :" + id
+                    ,"Solicitud Pendiente", destinatario.Correo);
             }
-            
-                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", destinatario.Correo);
                 solicitudRepositorio.Modificar(solicitud);
                 return MensajeComponente.mensaje("Se ha aprobado correctamente", true);
         }
@@ -217,13 +220,13 @@ namespace SS.Servicios
 
                 //Envia el correo al sigueinte usuario
                 CorreoComponente correo = new CorreoComponente(usuario.Email, usuario.Contraseña);
-                if(correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", subdirector.Correo))
+                    if(correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud pendiente por revisar ", "Solicitud Pendiente", subdirector.Correo))
                 {
                     solicitudRepositorio.Agregar(solicitud);
-                    return MensajeComponente.mensaje("Error al crear la solicitud", false);       
+                    return MensajeComponente.mensaje("Solicitud creada exitosamente", true);                  
                 }
 
-                return MensajeComponente.mensaje("Solicitud creada exitosamente", true);
+                return MensajeComponente.mensaje("Error al crear la solicitud", false);
             }
             return MensajeComponente.mensaje("Error al crear la solicitud", false);
         }
@@ -280,9 +283,13 @@ namespace SS.Servicios
                 {
                     return false;
                 }
-                return true;
+               if(solicitudDTO.Evento.Fecha_Hora_Regreso <= solicitudDTO.Evento.Fecha_Hora_Salida
+                    && solicitudDTO.Evento.Fecha_Hora_Salida < new DateTime())
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
     }
 

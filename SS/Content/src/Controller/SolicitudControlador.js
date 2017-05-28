@@ -56,7 +56,6 @@
         })
             .then(
                 function (respuestaExito) {
-                    console.log(respuestaExito);
                     $scope.solicitudes = angular.copy(respuestaExito.data);
                 }, function (respuestaError) {
                     console.error('Error al enlistar Solicitudes')
@@ -71,9 +70,8 @@
         })
         .then(
             function (respuestaExito) {
-                console.log(respuestaExito);
                 $scope.solicitudes = angular.copy(respuestaExito.data);
-                console.log($scope.solicitudes);
+               
             },
             function (respuestaError) {
                 console.error('Error al enlistar Solicitudes')
@@ -82,8 +80,6 @@
 
     $scope.mostrarSolicitud = function () {
         var id = $routeParams.id;
-
-        
         $http({
             method: 'get',
             url: servicioURL + "SS/Solicitud/ " + id,
@@ -92,6 +88,7 @@
         .then(
         function(respuestaExito){
             $scope.solicitudDTO = angular.copy(respuestaExito.data);
+            console.log($scope.solicitudDTO)
             var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Salida.split('-');
             var dia = fechaSalida[2].split('T');
             var horaSalida = dia[1].split(':');
@@ -112,10 +109,15 @@
      || $scope.solicitudDTO.Recurso_Solicitado.Oficio_Comision || $scope.otroRecurso
      || $scope.solicitudDTO.Recurso_Solicitado.Combustible) && ($scope.solicitudDTO.Actividad.CACEI || $scope.solicitudDTO.Actividad.Licenciatura
              || $scope.solicitudDTO.Actividad.Personal || $scope.solicitudDTO.Actividad.ISO
-             || $scope.solicitudDTO.Actividad.Posgrado || $scope.otraActividad && $scope.solicitudDTO.Evento.Fecha_Salida > new Date()
-            && $scope.solicitudDTO.Evento.Fecha_Regreso > new Date()));
+             || $scope.solicitudDTO.Actividad.Posgrado || $scope.otraActividad));
     };
 
+    $scope.isDateValid = function () {
+        if ($scope.solicitudDTO.Evento && ($scope.solicitudDTO.Evento.Fecha_Hora_Salida < $scope.solicitudDTO.Evento.Fecha_Hora_Regreso)) {
+            return true;
+        }
+        return false;
+    }
 
     $scope.agregarSolicitud = function () {
   
@@ -127,11 +129,9 @@
         })
             .then(
                 function (respuestaExito) {
-                    mostrarModal(respuestaExito.data.Mensaje)
-                    if (respuestaExito.data.Entidad) {
+                    mostrarModal(respuestaExito.data.Respuesta.Mensaje)
+                    if (respuestaExito.data.Respuesta.Entidad) {
                         $location.path('/Inicio');
-                    } else {
-                        mostrarModal(respuestaExito.data.Mensaje)
                     }
                 },
                 function (error) {
@@ -152,12 +152,10 @@
         })
             .then(
                 function (respuestaExito) {
-                    mostrarModal(respuestaExito.data.Mensaje)
-                    if (respuestaExito.data.Entidad) {
+                    mostrarModal(respuestaExito.data.Respuesta.Mensaje)
+                    if (respuestaExito.data.Respuesta.Entidad) {
                         $location.path('/Inicio');
-                    } else {
-                        mostrarModal(respuestaExito.data.Mensaje)
-                    }
+                    } 
                 },
                 function (error) {
                     $rootScope.loggedUser = null;
