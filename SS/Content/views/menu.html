@@ -3,26 +3,26 @@
     <div class="col-sm-3" ng-show="loggedUser.Rol.Nombre == 'Administrador'">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{loggedUser.Nombre}}
         <br>
-        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Notificacion')"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Ver notificaciones <span class="badge">{{noNotificaciones}}</span></button>
+        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Notificacion/Docente')"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Ver notificaciones <span class="badge">{{noNotificaciones}}</span></button>
         <br>
         <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud/Docente')"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Solicitudes realizadas</button>
         <br>
         <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud')"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Generar nueva solicitud</button>
         <br />
-        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud/Solicitudes')"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Historial de solicitudes</button>
+        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud/Administrativo')"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Historial de solicitudes</button>
         <br>
-        <button id="AgregarUsurio" type="button" ng-click="redireccionar('/SS/usuario/listar')" class="btn btn-link"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administrar usuarios académicos</button>
+        <button id="AgregarUsurio" type="button" ng-click="redireccionar('/SS/Usuario')" class="btn btn-link"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Administrar usuarios académicos</button>
         <br>
         <button id="myButton" type="button" class="btn btn-link"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Ayuda</button>
         <br>
         <button id="CerrarSesion" type="button" ng-click="logOut()" class="btn btn-link"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Cerrar sesión</button>
     </div>
-    <div class="col-sm-3 col-md-3 col-lg-3" ng-show="loggedUser.Rol.Nombre != 'Administrador' ">
+    <div class="col-sm-3 col-md-3 col-lg-3" ng-show="loggedUser.Rol.Nombre != 'Administrador'">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{loggedUser.Nombre}}
         <br>
-        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Notificacion')"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Ver notificaciones <span class="badge">{{noNotificaciones}}</span></button>
+        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Notificacion/Docente')"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Ver notificaciones <span class="badge">{{noNotificaciones}}</span></button>
         <br>
-        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud/Docente')"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Solicitudes realizadas</button>
+        <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud/Docente')" ><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Solicitudes realizadas</button>
         <br>
         <button id="myButton" type="button" class="btn btn-link" ng-click="redireccionar('/SS/Solicitud')"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Generar nueva solicitud</button>
         <br>

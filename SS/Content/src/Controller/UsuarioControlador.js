@@ -12,7 +12,6 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
   
     ///
     $scope.ordenamiento = function (NombreColumna) {
-        console.log(NombreColumna)
         $scope.myOrden = NombreColumna;
     }
 
@@ -25,8 +24,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
             headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
         }).then(
                 function (respuestaExito) {
-                    $scope.usuarios = angular.copy(respuestaExito.data);
-                 
+                    $scope.usuarios = angular.copy(respuestaExito.data);                
                 },
                 function (respuestaError) {
                     $rootScope.loggedUser = null;
@@ -117,7 +115,7 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
                                   }).then(function () {
                                       location.reload();
                                   }, function (error) {             
-                                      mostrarModal(error.data.ExceptionMessage)
+                                      mostrarModal(error.data.ExceptionMessage);
                                   });
                               });
                           });

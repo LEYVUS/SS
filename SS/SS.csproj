@@ -171,6 +171,7 @@
     <Content Include="Content\src\Service\TokenServicio.js" />
     <Content Include="Content\views\borrar.html" />
     <Content Include="Content\views\editar.html" />
+    <Content Include="Content\views\editarNotificacion.html" />
     <Content Include="Content\views\footer.html" />
     <Content Include="Content\views\header.html" />
     <Content Include="Content\views\historial-administrativo.html" />
@@ -182,6 +183,8 @@
     <Content Include="Content\views\mensaje.html" />
     <Content Include="Content\views\menu.html" />
     <Content Include="Content\views\notificaciones.html" />
+    <Content Include="Content\views\notificacionesDocente.html" />
+    <Content Include="Content\views\revision-solicitud.html" />
     <Content Include="Content\views\solicitud.html" />
     <Content Include="Content\views\usuario.html" />
     <Content Include="Global.asax" />
@@ -192,6 +195,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuthorizeAttribute.cs" />
+    <Compile Include="Componentes\Constantes\EstadoEnum.cs" />
+    <Compile Include="Componentes\Constantes\RolEnum.cs" />
     <Compile Include="Componentes\CorreoComponente.cs" />
     <Compile Include="Componentes\ExisteComponente.cs" />
     <Compile Include="Componentes\MensajeComponente.cs" />
@@ -213,6 +218,7 @@
     <Compile Include="Models\DTO\CategoriaDTO.cs" />
     <Compile Include="Models\DTO\EstadoDTO.cs" />
     <Compile Include="Models\DTO\EventoDTO.cs" />
+    <Compile Include="Models\DTO\Filtro\SolicitudFiltro.cs" />
     <Compile Include="Models\DTO\MensajeDTO.cs" />
     <Compile Include="Models\DTO\RecursoDTO.cs" />
     <Compile Include="Models\DTO\RolDTO.cs" />
@@ -230,7 +236,6 @@
     <Compile Include="Models\Entidades\SS\Recurso.cs" />
     <Compile Include="Models\Entidades\SS\Rol.cs" />
     <Compile Include="Models\Entidades\SS\Solicitud.cs" />
-    <Compile Include="Models\Entidades\SS\sysdiagram.cs" />
     <Compile Include="Models\Entidades\SS\Usuario.cs" />
     <Compile Include="Models\Entidades\SS\Validacion.cs" />
     <Compile Include="Models\Entidades\UABC\EntidadesUABC.cs" />

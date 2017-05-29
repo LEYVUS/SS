@@ -17,6 +17,9 @@ namespace SS.Servicios
         private UsuarioRepositorioImpl usuarioRepositorio;
         private UsuarioUABCRepositorioImpl usuarioUABCRepositorio;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SolicitudServicio()
         {
             solicitudRepositorio = new SolicitudRepositorioImpl(new EntidadesSS());
@@ -24,23 +27,95 @@ namespace SS.Servicios
             usuarioRepositorio = new UsuarioRepositorioImpl(new EntidadesSS());
         }
 
- 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public List<SolicitudDTO> BuscarSolicitudesPorCorreo(UsuarioDTO usuario)
+        public MensajeDTO AceptarTotalmente(int id, string Correo)
+        {
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(Correo);
+            CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
+            solicitud.Id_Estado = (int)EstadoEnum.Aceptado;
+            solicitud.Validacion.Subdirector = true;
+            solicitud.Validacion.Administrador = true;
+            solicitud.Validacion.Coordinador = true;
+            solicitud.Validacion.Director = true;
+            solicitud.Validacion.Posgrado = true;
+            solicitudRepositorio.Modificar(solicitud);
+            correo.MandarCorreo("Sistema Solicitud de Salida. " + "La solicitud: " + id + " ha sido aceptada."
+                   , "Solicitud Aceptada", solicitud.Correo_Solicitante);
+            return MensajeComponente.mensaje("Solicitud Aprobada", true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public MensajeDTO RechazarTotalmente(int id, string Correo)
+        {
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(Correo);
+            CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
+            solicitudRepositorio.Borrar(solicitud);
+            correo.MandarCorreo("Sistema Solicitud de Salida. " + "La solicitud: " + id + " ha sido rechazada."
+                   , "Solicitud Rechazada", solicitud.Correo_Solicitante);
+            return MensajeComponente.mensaje("Solicitud Rechazada", false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filtro"></param>
+        /// <returns></returns>
+        public MensajeDTO BuscarSolicitudesHistorial(SolicitudFiltro filtro, int paginacion)
         {
             List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
-            List<Solicitud> solicitudes = solicitudRepositorio.BuscarSolicitudPorCorreo(TransferirEntidad.TransferirDatosUsuarioDTO(usuario)).ToList();
+            if (filtro.Carrera == null)
+            {
+                filtro.carrera = true;
+                filtro.Carrera = new CarreraDTO();
+            }
+            List<Solicitud> solicitudes = solicitudRepositorio.buscarSolicituHistorial(filtro);
+            MensajeDTO mensaje;
+
             foreach (Solicitud solicitud in solicitudes)
             {
                 solicitudesDTO.Add(TransferirDTO.TransferirSolicitud(solicitud));
             }
 
-            return solicitudesDTO;
+            mensaje = MensajeComponente.mensaje("Datos", solicitudesDTO.Skip(paginacion - 10).Take(paginacion).ToList());
+            mensaje.largo = solicitudesDTO.Count();
+            return mensaje;
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public MensajeDTO BuscarSolicitudesPorCorreo(SolicitudFiltro filtro, int paginacion)
+        {
+            List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
+            if (filtro.Carrera == null)
+            {
+                filtro.carrera = true;
+                filtro.Carrera = new CarreraDTO();
+            }
+            List<Solicitud> solicitudes = solicitudRepositorio.BuscarSolicitudPorCorreo(filtro);
+            MensajeDTO mensaje;
+            foreach (Solicitud solicitud in solicitudes)
+            {
+                solicitudesDTO.Add(TransferirDTO.TransferirSolicitud(solicitud));
+            }
+            mensaje = MensajeComponente.mensaje("Datos", solicitudesDTO.Skip(paginacion - 10).Take(paginacion).ToList());
+            mensaje.largo = solicitudesDTO.Count();
+            return mensaje;
+         }
 
         /// <summary>
         /// 
@@ -107,7 +182,8 @@ namespace SS.Servicios
 
             if (solicitudTerminadaRevision)
             {
-                correo.MandarCorreo("Sistema Solicitud de Salida" + "Tiene una solicitud aceptada",
+                solicitud.Id_Estado = (int)EstadoEnum.Aceptado;
+                correo.MandarCorreo("Sistema Solicitud de Salida" + "La solicitud:" + id + "ha sido aceptada",
                     "Solicitud Aceptada", solicitud.Correo_Solicitante);
             }else
             {
@@ -129,9 +205,9 @@ namespace SS.Servicios
             Solicitud solicitud = solicitudRepositorio.BuscarPorId(solicitudDTO.Id);
             solicitud.Comentario_Rechazado = solicitudDTO.Comentario_Rechazado;
             solicitud.Id_Estado = (int)EstadoEnum.Rechazado;
-       //     Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
-        //    CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
-       //     correo.MandarCorreo("Sistema Solicitud de Salida" + "Se ha rechazado una solicitud", "Solicitud Pendiente", solicitud.Correo_Solicitante);
+            Models.Entidades.UABC.Usuario usuarioUABC = usuarioUABCRepositorio.BuscarUsuarioUABC(solicitud.Correo_Solicitante);
+            CorreoComponente correo = new CorreoComponente(usuarioUABC.Email, usuarioUABC.Contraseña);
+            correo.MandarCorreo("Sistema Solicitud de Salida" + "Se ha rechazado una solicitud", "Solicitud Pendiente", solicitud.Correo_Solicitante);
             solicitudRepositorio.Modificar(solicitud);
             return MensajeComponente.mensaje("Se ha aprobado correctamente", true);
             
@@ -147,15 +223,18 @@ namespace SS.Servicios
             List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
             List<Solicitud> solicitudes;
             MensajeDTO mensaje;
+            if (filtro.Carrera == null)
+            {
+                filtro.carrera = true;
+                filtro.Carrera = new CarreraDTO();
+            }
+            if (filtro.Nombre == null)
+            {
+                filtro.Nombre = "";
+            }
+
             if ( filtro.usuario.Rol != null)
             {
-
-                if (filtro.Carrera == null)
-                {
-                    filtro.carrera = true;
-                    filtro.Carrera = new CarreraDTO();
-                }
-
                 switch (filtro.usuario.Rol.Descripcion)
                 {
                     case "Coordinador":
@@ -229,24 +308,6 @@ namespace SS.Servicios
                 return MensajeComponente.mensaje("Error al crear la solicitud", false);
             }
             return MensajeComponente.mensaje("Error al crear la solicitud", false);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<SolicitudDTO> BuscarTodos()
-        {
-            List<SolicitudDTO> solicitudesDTO = new List<SolicitudDTO>();
-            List<Solicitud> solicitudes = solicitudRepositorio.BuscarTodos().ToList();
-        
-
-            foreach (Solicitud solicitud in solicitudes)
-            {
-                solicitudesDTO.Add(TransferirDTO.TransferirSolicitud(solicitud));
-            }
-
-            return solicitudesDTO;
         }
 
 

@@ -16,22 +16,31 @@ namespace SS.Repositorios.Implementaciones
         {
             this.context = context;
         }
-        public List<Solicitud> BuscarSolicitudPorCorreo(Usuario usuario)
+
+        public List<Solicitud> BuscarSolicitudPorCorreo(SolicitudFiltro filtro)
         {
             EntidadesSS context = new EntidadesSS();
-            List<Solicitud> solicitudSS;
-            var solicitud = from s in context.Solicituds where s.Correo_Solicitante == usuario.Correo
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds where
+                            s.Correo_Solicitante == filtro.usuario.Correo
                             select s;
             try
             {
-                solicitudSS = solicitud.ToList();
+                solicitudes = solicitud
+                    .Where(s =>
+                        (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                     .Where(s =>
+                       (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                     .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)               
+                .ToList();
             }
             catch (Exception ex)
             {
                 return null;
             }
 
-            return solicitudSS;
+            return solicitudes;
         }
 
 
@@ -263,6 +272,33 @@ namespace SS.Repositorios.Implementaciones
 
         }
 
+        public List<Solicitud> buscarSolicituHistorial(SolicitudFiltro filtro)
+        {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds
+                            select s;
+
+            try
+            {
+                solicitudes = solicitud
+                    .Where(s =>
+                        (filtro.Folio == 0) ? s.Id != filtro.Folio : s.Id == filtro.Folio)
+                    .Where(s =>
+                        (filtro.Nombre == "") ? s.Nombre_Solicitante != filtro.Nombre : s.Evento.Nombre == filtro.Nombre)
+                    .Where(s =>
+                        (filtro.Correo == "") ? s.Correo_Solicitante != filtro.Correo : s.Correo_Solicitante == filtro.Correo)
+                    .Where(s =>
+                       (filtro.carrera) ? s.Id_Carrera != 0 : s.Id_Carrera == filtro.Carrera.Id)
+                      .ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+        }
     }
 }
 

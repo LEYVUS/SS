@@ -2,6 +2,7 @@
 using SS.Models.DTO.Filtro;
 using SS.Models.Entidades.SS;
 using SS.Servicios;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace SS.Controllers
@@ -29,11 +30,11 @@ namespace SS.Controllers
         /// </summary>
         /// <returns>Muestra la lista de solicitudes</returns>
         [Authorize(Roles = "Administrador")]
-        [Route("SS/Historial")]
-        [HttpGet]
-        public IHttpActionResult ListarSolicitud()
+        [Route("SS/Historial/{paginacion:int}")]
+        [HttpPost]
+        public IHttpActionResult ListarSolicitud([FromBody]SolicitudFiltro filtro, int paginacion)
         {
-            return Ok(servicioSolicitud.BuscarTodos());
+            return Ok(servicioSolicitud.BuscarSolicitudesHistorial(filtro,paginacion));
         }
 
         /// <summary>
@@ -41,11 +42,11 @@ namespace SS.Controllers
         /// </summary>
         /// <returns>Muestra la lista de solicitudes</returns>
         [Authorize]
-        [Route("SS/Docente")]
+        [Route("SS/Solicitud/Correo/{paginacion:int}")]
         [HttpPost]
-        public IHttpActionResult ListarSolicitudPorCorreo([FromBody] UsuarioDTO usuarioDTO)
+        public IHttpActionResult ListarSolicitudPorCorreo([FromBody] SolicitudFiltro filtro,int paginacion)
         {
-            return Ok(servicioSolicitud.BuscarSolicitudesPorCorreo(usuarioDTO));
+            return Ok(servicioSolicitud.BuscarSolicitudesPorCorreo(filtro,paginacion));
         }
 
         /// <summary>
@@ -85,6 +86,23 @@ namespace SS.Controllers
            return Ok(servicioSolicitud.BuscarSolicitudesPorRols(filtro, paginacion)); 
         }
 
+        [Authorize]
+        [Route("SS/Solicitud/Aceptar/Totalmente/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult AceptarTotalmente(int id)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            return Ok(servicioSolicitud.AceptarTotalmente(id, identity.Name));
+        }
+
+        [Authorize]
+        [Route("SS/Solicitud/Rechazar/Totalmente/{id:int}")]
+        [HttpGet]
+        public IHttpActionResult RechazarTotalmente(int id)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            return Ok(servicioSolicitud.RechazarTotalmente(id, identity.Name));
+        }
 
 
 

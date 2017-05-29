@@ -8,9 +8,9 @@
     $scope.Filtro = { usuario: '' }
 
     $scope.notificacionesListar = function (usuario, paginacion) {
-       
+     
         $scope.Filtro.usuario = usuario;
-       
+
         $http({
             method: 'get',
             url: servicioURL + "SS/Carrera",
@@ -26,7 +26,9 @@
               tokenServicio.logOut();
           }
       );
-     
+        if ($scope.Filtro.Nombre == null) {
+            $scope.Filtro.Nombre == "";
+        }
         $http({
             method: 'post',
             url: servicioURL + "SS/Solicitud/Rol/" + paginacion,
@@ -57,11 +59,44 @@
             })
         }
     }
+    ///
 
-    $scope.verificacion = function (Rol) {
-        if (Rol == null) {
-            return false;
-        }
-        return true;
+    ///
+    $scope.notificacionesDocente = function (usuario, paginacion) {
+       var usuarioSinRol = angular.copy(usuario);
+       usuarioSinRol.Rol = null;
+       $scope.Filtro.usuario = usuarioSinRol;
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Carrera",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        }).then(
+      function (respuestaExito) {
+          $scope.carreras = angular.copy(respuestaExito.data);
+      },
+           function (respuestaError) {
+               $rootScope.loggedUser = null;
+               $location.path('/login');
+               tokenServicio.logOut();
+           }
+        );
+
+        $http({
+            method: 'post',
+            url: servicioURL + "SS/Solicitud/Rol/" + paginacion,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: $scope.Filtro
+        })
+            .then(
+                function (respuestaExito) {
+                    contarNotificaciones(respuestaExito.data.largo);
+                    $scope.notificaciones = angular.copy(respuestaExito.data.Respuesta.Entidad);
+                },
+                function (respuestaError) {
+                    $rootScope.loggedUser = null;
+                    $location.path('/login');
+                    tokenServicio.logOut();
+                }
+            );
     }
 });

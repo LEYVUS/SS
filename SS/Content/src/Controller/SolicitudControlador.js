@@ -13,9 +13,13 @@
     $scope.categorias = [];
     $scope.fechaSalida = new Date();
     $scope.fechaRegreso = new Date();
-
+    $scope.paginacion = 0;
+    $scope.pages = []
+    $scope.cantidadPaginador = 10;
+    $scope.Filtro = { usuario: '' }
 
     $scope.obtenerValores = function () {
+
         $http({
             method: 'get',
             url: servicioURL + "SS/Carrera",
@@ -47,31 +51,112 @@
         );
     };
 
-    $scope.obtenerSolicitudesCorreo = function () {
+    $scope.aceptarTotalmente = function (id) {
+
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Solicitud/Aceptar/Totalmente/" + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+         .then(
+            function (respuestaExito) {
+                mostrarModal(respuestaExito.data.Respuesta.Mensaje);
+            },
+            function (respuestaError) {
+                $rootScope.loggedUser = null;
+                $location.path('/login');
+                tokenServicio.logOut();
+            }
+       );
+    }
+
+    $scope.rechazarTotalmente = function (id) {
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Solicitud/Rechazar/Totalmente/" + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+       .then(
+          function (respuestaExito) {
+              mostrarModal(respuestaExito.data.Respuesta.Mensaje);
+          },
+          function (respuestaError) {
+              $rootScope.loggedUser = null;
+              $location.path('/login');
+              tokenServicio.logOut();
+          }
+     );
+    }
+
+    $scope.obtenerSolicitudesCorreo = function (usuario, paginacion) {
+
+        $scope.Filtro.usuario = usuario;
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Carrera",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        }).then(
+            function (respuestaExito) {
+                $scope.carreras = angular.copy(respuestaExito.data);
+            },
+             function (respuestaError) {
+                 $rootScope.loggedUser = null;
+                 $location.path('/login');
+                 tokenServicio.logOut();
+             }
+         );
         $http({
             method: 'post',
-            url: servicioURL + "SS/Docente",
+            url: servicioURL + "SS/Solicitud/Correo/" + paginacion,
             headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
-            data: $rootScope.loggedUser
+            data: $scope.Filtro
         })
             .then(
                 function (respuestaExito) {
-                    $scope.solicitudes = angular.copy(respuestaExito.data);
+                    contarNotificaciones(respuestaExito.data.largo);
+                    $scope.solicitudes = angular.copy(respuestaExito.data.Respuesta.Entidad);
                 }, function (respuestaError) {
                     console.error('Error al enlistar Solicitudes')
                 });
     }
 
-    $scope.obtenerSolicitudes = function () {
+    function contarNotificaciones(notificacion) {
+        $scope.pages = [];
+        var longitud = Math.ceil(notificacion / 10);
+
+        for (var i = 1; i <= longitud; i++) {
+            $scope.pages.push({
+                no: i
+            })
+        }
+    }
+
+    $scope.obtenerSolicitudes = function (usuario, paginacion) {
+        $scope.Filtro.usuario = usuario;
         $http({
             method: 'get',
-            url: servicioURL + "SS/Historial",
+            url: servicioURL + "SS/Carrera",
             headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        }).then(
+            function (respuestaExito) {
+                $scope.carreras = angular.copy(respuestaExito.data);
+            },
+             function (respuestaError) {
+                 $rootScope.loggedUser = null;
+                 $location.path('/login');
+                 tokenServicio.logOut();
+             }
+         );
+        $http({
+            method: 'post',
+            url: servicioURL + "SS/Historial/" + paginacion,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: $scope.Filtro
         })
         .then(
             function (respuestaExito) {
-                $scope.solicitudes = angular.copy(respuestaExito.data);
-               
+                contarNotificaciones(respuestaExito.data.largo);
+                $scope.solicitudes = angular.copy(respuestaExito.data.Respuesta.Entidad);          
             },
             function (respuestaError) {
                 console.error('Error al enlistar Solicitudes')
@@ -88,7 +173,6 @@
         .then(
         function(respuestaExito){
             $scope.solicitudDTO = angular.copy(respuestaExito.data);
-            console.log($scope.solicitudDTO)
             var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Salida.split('-');
             var dia = fechaSalida[2].split('T');
             var horaSalida = dia[1].split(':');
@@ -153,9 +237,6 @@
             .then(
                 function (respuestaExito) {
                     mostrarModal(respuestaExito.data.Respuesta.Mensaje)
-                    if (respuestaExito.data.Respuesta.Entidad) {
-                        $location.path('/Inicio');
-                    } 
                 },
                 function (error) {
                     $rootScope.loggedUser = null;
@@ -175,12 +256,7 @@
             .then(
                 function (respuestaExito) {
                     mostrarModal(respuestaExito.data.Mensaje)
-                    if (respuestaExito.data.Entidad) {
-                        $location.path('/Inicio');
-                    } else {
-                        mostrarModal(respuestaExito.data.Mensaje)
-                    }
-                },
+                 },
                 function (error) {
                     $rootScope.loggedUser = null;
                     $location.path('/login');
@@ -202,6 +278,7 @@
                 modal.element.modal();
                 modal.close.then(function (resultado) {
                     $rootScope.modal = true;
+                    $location.path('/Inicio');
                 });
             });
         }

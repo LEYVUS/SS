@@ -337,3 +337,4 @@ C:\Users\Daniel\Documents\SS\SSFN\SS\bin\es\System.Web.Http.WebHost.resources.dl
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.dll
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.pdb
+C:\Users\FATE\Desktop\SS\SS\obj\Debug\SS.csprojResolveAssemblyReference.cache

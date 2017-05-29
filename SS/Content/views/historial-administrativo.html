@@ -1,22 +1,54 @@
 
-<div ng-controller="solicitudCtrl" ng-init="obtenerSolicitudes()">
+<div ng-controller="solicitudCtrl" ng-init="obtenerSolicitudes(loggedUser,cantidadPaginador)">
     <div class="container">
         <div myheader></div>
         <div class="row">
             <div mymenu></div>
+            <div style="margin-left:390px; height:150px; width:780px;">
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label for="ex1">Folio</label>
+                        <input ng-model="Filtro.Folio" class="form-control" id="ex1" type="number">
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex2">Nombre Solicitud</label>
+                        <input ng-model="Filtro.Nombre" class="form-control" id="ex2" ng-init="Filtro.Nombre = ''" type="text">
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex2">Correo solicitante</label>
+                        <input ng-model="Filtro.Correo" class="form-control" id="ex2" ng-init="Filtro.Correo = ''" type="text">
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex3">Carrera</label><br />
+                        <select name="carrera" ng-model="Filtro.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera"></select>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <button style="margin-left:15px;" type="button" class="btn btn-warning" ng-click="obtenerSolicitudes(loggedUser,cantidadPaginador)">Aplicar Filtros</button>
+                </div>
+            </div>
             <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
+                <ul class="pagination">
+                    <li><a href="" ng-click="obtenerSolicitudes(loggedUser,10)">&laquo;</a></li>
+                    <li ng-repeat="page in pages">
+                        <a href="" ng-click="obtenerSolicitudes(loggedUser,cantidadPaginador * page.no)">{{page.no}}</a>
+                    </li>
+                    <li><a ng-click="obtenerSolicitudes(loggedUser,(cantidadPaginador = 10) *pages.length )">&raquo;</a></li>
+                </ul>
                 <h3>Historial de Solicitudes</h3>
-                <table class="table" id="cssTable">
+                <table class="table table-striped" id="cssTable">
                     <tr>
-                        <th>Folio</th>
-                        <th>Nombre de la Solicitud</th>
-                        <th>Nombre del Solicitante</th>
-                        <th>Correo</th>
-                        <th>Fecha de salida</th>
-                        <th>Estado</th>
-                        <th>Reporte</th>
-                        <th>Aceptar</th>
-                        <th>Rechazar</th>
+                        <th style="text-align:center;">Folio</th>
+                        <th style="text-align:center;">Nombre de la Solicitud</th>
+                        <th style="text-align:center;">Nombre del Solicitante</th>
+                        <th style="text-align:center;">Correo</th>
+                        <th style="text-align:center;">Fecha de salida</th>
+                        <th style="text-align:center;">Estado</th>
+                        <th style="text-align:center;">Reporte</th>
+                        <th style="text-align:center;">Aceptar</th>
+                        <th style="text-align:center;">Rechazar</th>
                     </tr>
                     <tbody>
                         <tr ng-repeat="solicitudDTO in solicitudes">
@@ -24,17 +56,17 @@
                             <td>{{solicitudDTO.Evento.Nombre}}</td>
                             <td>{{solicitudDTO.Nombre_Solicitante}}</td>
                             <td>{{solicitudDTO.Correo_Solicitante}}</td>
-                            <td>{{solicitudDTO.Evento.Fecha_Hora_Salida}}</td>
+                            <td>{{solicitudDTO.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
                             <td>{{solicitudDTO.Estado.Tipo}}</td>
-                            <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click=""></button></td>
-                            <td><button type="button" class="btn btn-success btn-xs glyphicon glyphicon-ok" ng-click=""></button></td>
-                            <td><button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click=""></button></td>
+                            <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click="" ng-show="solicitudDTO.Estado.Id == 2"></button></td>
+                            <td><button type="button" class="btn btn-success btn-xs glyphicon glyphicon-ok" ng-click="aceptarTotalmente(solicitudDTO.Id)" ng-show="solicitudDTO.Estado.Id == 1"></button></td>
+                            <td><button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click="rechazarTotalmente(solicitudDTO.Id)" ng-show="solicitudDTO.Estado.Id == 1"></button></td>
                         </tr>
                     </tbody>
 
                 </table>
             </div>
-            <div myfooter></div>
+            <div style="margin-left:160px;" myfooter></div>
         </div>
     </div>
     </div>

@@ -16,5 +16,7 @@ namespace SS.Repositorios.Interfaces
             List<Solicitud> buscarSolicitudesPorCoordinador(SolicitudFiltro filtro);
             List<Solicitud> buscarSolicitudesPorDocente(SolicitudFiltro filtro);
             List<Solicitud> buscarSolicitudesPorAdministrador(SolicitudFiltro filtro);
+            List<Solicitud> buscarSolicituHistorial(SolicitudFiltro filtro);
+            List<Solicitud> BuscarSolicitudPorCorreo(SolicitudFiltro filtro);
     }
 }
