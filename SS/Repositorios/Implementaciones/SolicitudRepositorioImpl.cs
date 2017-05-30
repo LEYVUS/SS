@@ -8,7 +8,7 @@ using SS.Models.Entidades.SS;
 using SS.Repositorios.Interfaces;
 using SS.Models.DTO.Filtro;
 using SS.Componentes;
-
+using System.Data.Entity.Core.Objects;
 namespace SS.Repositorios.Implementaciones
 {
     public class SolicitudRepositorioImpl : RepostorioCRUD<Solicitud>, ISolicitudRepositorio
@@ -309,16 +309,20 @@ namespace SS.Repositorios.Implementaciones
             var solicitud = from s in context.Solicituds
                             join e in context.Eventoes
                              on s.Id_Evento equals e.Id
-                            where (s.Id_Estado == (int)EstadoEnum.Aceptado &&
-                                  ((s.Evento.Fecha_Hora_Salida - DateTime.Now).Days >= 5))
+                            where (s.Id_Estado == (int)EstadoEnum.Aceptado)
                             select s;
       
             try
             {
+
                 solicitudes = solicitud.ToList();
-                foreach (Solicitud s in solicitudes)
+                 foreach (Solicitud s in solicitudes)
                 {
-                    s.Id_Estado = (int)EstadoEnum.Terminado;
+                    var days = DateTime.Now.AddDays(-5);
+                    if (s.Evento.Fecha_Hora_Salida < days)
+                    {
+                        s.Id_Estado = (int)EstadoEnum.Reporte;
+                    }
                 }
                 context.SaveChanges();
             }
