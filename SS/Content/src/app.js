@@ -13,6 +13,10 @@ app.config(function ($routeProvider, localStorageServiceProvider) {
             templateUrl: '../Content/views/historial-administrativo.html',
             controller: 'solicitudCtrl'
         })
+       .when('/SS/Solicitud/Visualizar/:id', {
+            templateUrl: '../Content/views/Visualizar.html',
+            controller: 'solicitudCtrl'
+         })
         .when('/SS/Solicitud/Docente', {
             templateUrl: '../Content/views/historial-docente.html',
             controller: 'solicitudCtrl'

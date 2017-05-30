@@ -188,6 +188,104 @@
                     });
     };
 
+    $scope.editar = function () {
+        var id = $routeParams.id;
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Carrera",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        }).then(
+              function (respuestaExito) {
+                  $scope.carreras = angular.copy(respuestaExito.data);
+              },
+               function (respuestaError) {
+                   $rootScope.loggedUser = null;
+                   $location.path('/login');
+                   tokenServicio.logOut();
+               }
+           );
+
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Categoria",
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+          .then(
+             function (respuestaExito) {
+                 $scope.categorias = angular.copy(respuestaExito.data);
+             },
+             function (respuestaError) {
+                 $rootScope.loggedUser = null;
+                 $location.path('/login');
+                 tokenServicio.logOut();
+             }
+        );
+
+
+        $http({
+            method: 'get',
+            url: servicioURL + "SS/Solicitud/ " + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() }
+        })
+        .then(
+        function (respuestaExito) {
+            $scope.solicitudDTO = angular.copy(respuestaExito.data);
+            var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Salida.split('-');
+            var dia = fechaSalida[2].split('T');
+            var horaSalida = dia[1].split(':');
+            $scope.fechaSalida = new Date(fechaSalida[0], fechaSalida[1], dia[0], horaSalida[0], horaSalida[1], horaSalida[2]);
+            $scope.horaSalida = $scope.fechaSalida.toLocaleTimeString();
+            var fechaSalida = $scope.solicitudDTO.Evento.Fecha_Hora_Regreso.split('-');
+            var dia = fechaSalida[2].split('T');
+            var horaSalida = dia[1].split(':');
+            $scope.fechaRegreso = new Date(fechaSalida[0], fechaSalida[1], dia[0], horaSalida[0], horaSalida[1], horaSalida[2]);
+            $scope.horaRegreso = $scope.fechaRegreso.toLocaleTimeString();
+        },
+           function (respuestaError) {
+               console.error('Error al buscar la  solicitud')
+           });
+
+    }
+
+    $scope.CrearPDF = function (id) {       
+        $http({
+            method: 'get',
+            url: servicioURL + "OficioComision/PDF/" + id,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            responseType: 'arraybuffer'
+        }).then(
+         function (respuestaExito) {
+             console.log(respuestaExito)
+             var file = new Blob([respuestaExito.data], { type: 'application/pdf' });
+             var fileURL = URL.createObjectURL(file);
+             window.open(fileURL);
+
+         },
+         function (respuestaError) {
+
+         });
+    }
+
+   $scope.editarSolicitud = function () {
+        $http({
+            method: 'put',
+            url: servicioURL + "SS/Solicitud " ,
+            headers: { 'Authorization': 'Bearer ' + tokenServicio.getUsuario() },
+            data: $scope.solicitudDTO
+        }).then(
+         function (respuestaExito) {
+             mostrarModal(respuestaExito.data.Respuesta.Mensaje)
+             if (respuestaExito.data.Respuesta.Entidad) {
+                 $location.path('/Inicio');
+             }
+         },
+         function (respuestaError) {
+
+         });
+    }
+
+
+
     $scope.isCheckboxChecked = function () {
         return (($scope.solicitudDTO.Recurso_Solicitado.Hospedaje || $scope.solicitudDTO.Recurso_Solicitado.Viatico
      || $scope.solicitudDTO.Recurso_Solicitado.Oficio_Comision || $scope.otroRecurso

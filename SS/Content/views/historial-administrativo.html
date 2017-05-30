@@ -49,6 +49,7 @@
                         <th style="text-align:center;">Reporte</th>
                         <th style="text-align:center;">Aceptar</th>
                         <th style="text-align:center;">Rechazar</th>
+                        <th style="text-align:center;">Visualizar</th>
                     </tr>
                     <tbody>
                         <tr ng-repeat="solicitudDTO in solicitudes">
@@ -58,9 +59,10 @@
                             <td>{{solicitudDTO.Correo_Solicitante}}</td>
                             <td>{{solicitudDTO.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
                             <td>{{solicitudDTO.Estado.Tipo}}</td>
-                            <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click="" ng-show="solicitudDTO.Estado.Id == 2"></button></td>
+                            <td><button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click="CrearPDF(solicitudDTO.Id)" ng-show="solicitudDTO.Estado.Id == 2"></button></td>
                             <td><button type="button" class="btn btn-success btn-xs glyphicon glyphicon-ok" ng-click="aceptarTotalmente(solicitudDTO.Id)" ng-show="solicitudDTO.Estado.Id == 1"></button></td>
                             <td><button type="button" class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click="rechazarTotalmente(solicitudDTO.Id)" ng-show="solicitudDTO.Estado.Id == 1"></button></td>
+                            <td><button type="button" class="btn btn-warning btn-xs glyphicon glyphicon-eye-open" ng-click="redireccionar('/SS/Solicitud/Visualizar/' + solicitudDTO.Id)" ></button></td>
                         </tr>
                     </tbody>
 

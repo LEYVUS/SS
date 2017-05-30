@@ -2,6 +2,9 @@
 using SS.Models.DTO.Filtro;
 using SS.Models.Entidades.SS;
 using SS.Servicios;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Web.Http;
 
@@ -24,6 +27,21 @@ namespace SS.Controllers
         {
             return Ok(servicioSolicitud.Agregar(solicitudDTO));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="solicitudDTO"></param>
+        /// <returns></returns>
+        [Authorize]
+        [Route("SS/Solicitud")]
+        [HttpPut]
+        public IHttpActionResult EditarSolicitud([FromBody] SolicitudDTO solicitudDTO)
+        {
+            return Ok(servicioSolicitud.EditarSolicitud(solicitudDTO));
+        }
+
+
 
         /// <summary>
         /// Lista las Solicitudes

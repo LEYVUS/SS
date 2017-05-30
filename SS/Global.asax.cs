@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using System.Web.Optimization;
+using SS.Jobs;
 
 namespace SS
 {
@@ -20,6 +21,7 @@ namespace SS
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ReporteExcecutor.Start();
         }
     }
 }

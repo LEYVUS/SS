@@ -18,5 +18,6 @@ namespace SS.Repositorios.Interfaces
             List<Solicitud> buscarSolicitudesPorAdministrador(SolicitudFiltro filtro);
             List<Solicitud> buscarSolicituHistorial(SolicitudFiltro filtro);
             List<Solicitud> BuscarSolicitudPorCorreo(SolicitudFiltro filtro);
+            void EstadoReporte();
     }
 }

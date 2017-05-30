@@ -41,6 +41,7 @@
                             <th style="text-align:center;">Fecha de salida</th>
                             <th style="text-align:center;">Fecha de regreso</th>
                             <th style="text-align:center;">Estado</th>
+                            <th style="text-align:center;">Subir Reporte</th>
                         </tr>    
                     <tbody>
                         <tr ng-repeat="solicitudDTO in solicitudes">
@@ -50,9 +51,18 @@
                             <td style="text-align:center;">{{solicitudDTO.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
                             <td style="text-align:center;">{{solicitudDTO.Evento.Fecha_Hora_Regreso  | date:'shortDate'}}</td>
                             <td style="text-align:center;">{{solicitudDTO.Estado.Tipo}}</td>
+                            <td style="text-align:center;"><div class="image-upload">
+                        <div class="image-upload">
+                        <label for="file-input">
+                            <i class="glyphicon glyphicon-open-file" aria-hidden="true"></i>
+                        </label>
+                            <input id="file-input" type="file"/>
+                        </div>
+                        </div></td>
                         </tr>
                     </tbody>
                     </table>
+                   
                 </div>
         <div style="margin-left:160px;" myfooter></div>
     </div>

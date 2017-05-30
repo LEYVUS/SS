@@ -337,4 +337,15 @@ C:\Users\Daniel\Documents\SS\SSFN\SS\bin\es\System.Web.Http.WebHost.resources.dl
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.dll
 C:\Users\Daniel\Documents\SS\SSFN\SS\obj\Debug\SS.pdb
+C:\Users\FATE\Desktop\SS\SS\bin\itextsharp.dll
+C:\Users\FATE\Desktop\SS\SS\bin\itextsharp.xml
 C:\Users\FATE\Desktop\SS\SS\obj\Debug\SS.csprojResolveAssemblyReference.cache
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.Core.dll
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.dll
+C:\Users\FATE\Desktop\SS\SS\bin\Quartz.dll
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.pdb
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.xml
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.Core.pdb
+C:\Users\FATE\Desktop\SS\SS\bin\Common.Logging.Core.xml
+C:\Users\FATE\Desktop\SS\SS\bin\Quartz.pdb
+C:\Users\FATE\Desktop\SS\SS\bin\Quartz.xml

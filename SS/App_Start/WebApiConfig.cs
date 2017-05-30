@@ -16,7 +16,7 @@ namespace SS
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "SS/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

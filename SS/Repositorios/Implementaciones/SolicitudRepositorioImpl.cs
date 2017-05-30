@@ -7,6 +7,7 @@ using SS.Repositorios.Genericos;
 using SS.Models.Entidades.SS;
 using SS.Repositorios.Interfaces;
 using SS.Models.DTO.Filtro;
+using SS.Componentes;
 
 namespace SS.Repositorios.Implementaciones
 {
@@ -298,6 +299,33 @@ namespace SS.Repositorios.Implementaciones
             }
 
             return solicitudes;
+        }
+
+        public void EstadoReporte()
+        {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var fechaActual = DateTime.Now;
+            var solicitud = from s in context.Solicituds
+                            join e in context.Eventoes
+                             on s.Id_Evento equals e.Id
+                            where (s.Id_Estado == (int)EstadoEnum.Aceptado &&
+                                  ((s.Evento.Fecha_Hora_Salida - DateTime.Now).Days >= 5))
+                            select s;
+      
+            try
+            {
+                solicitudes = solicitud.ToList();
+                foreach (Solicitud s in solicitudes)
+                {
+                    s.Id_Estado = (int)EstadoEnum.Terminado;
+                }
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }

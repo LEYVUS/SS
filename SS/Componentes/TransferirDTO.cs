@@ -27,6 +27,53 @@ namespace SS.Componentes
             return usuarioDTO;
         }
 
+        public static Evento TransferirEvento(EventoDTO eventoDTO)
+        {
+            Evento evento = new Evento();
+            evento.Costo = eventoDTO.Costo;
+            evento.Lugar = eventoDTO.Lugar;
+            evento.Nombre = eventoDTO.Nombre;
+            evento.Id = eventoDTO.Id;
+            return evento;
+        }
+
+        public static Actividad TransferirActividad(ActividadDTO actividadDTO)
+        {
+            Actividad actividad = new Actividad();
+            actividad.Id = actividadDTO.Id;
+            actividad.CACEI= actividadDTO.CACEI;
+            actividad.ISO = actividadDTO.ISO;
+            actividad.Licenciatura = actividadDTO.Licenciatura;
+            actividad.Otro = actividadDTO.Otro;
+            actividad.Personal = actividadDTO.Personal;
+            actividad.Posgrado = actividadDTO.Posgrado;
+            return actividad;
+        }
+
+        public static Validacion TransferirValidacion(ValidacionDTO validacionDTO)
+        {
+            Validacion validacion = new Validacion();
+            validacion.Id = validacionDTO.Id;
+            validacion.Posgrado = validacionDTO.Posgrado;
+            validacion.Subdirector = validacionDTO.Subdirector;
+            validacion.Director = validacionDTO.Director;
+            validacion.Coordinador = validacionDTO.Coordinador;
+            validacion.Administrador = validacionDTO.Administrador;
+            return validacion;
+        }
+
+        public static Recurso TransferirRecurso(RecursoDTO recursoDTO)
+        {
+            Recurso recurso = new Recurso();
+            recurso.Id = recursoDTO.Id;
+            recurso.Combustible = recursoDTO.Combustible;
+            recurso.Hospedaje = recursoDTO.Hospedaje;
+            recurso.Oficio_Comision = recursoDTO.Oficio_Comision;
+            recurso.Otro = recursoDTO.Otro;
+            recurso.Transporte = recursoDTO.Transporte;
+            recurso.Viatico = recursoDTO.Viatico;
+            return recurso;
+        }
 
         public static SolicitudDTO TransferirSolicitud(Solicitud solicitud)
         {

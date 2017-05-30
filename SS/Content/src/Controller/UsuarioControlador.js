@@ -41,7 +41,6 @@ appController.controller("usuarioCtrl", function ($scope, $location, $rootScope,
     ///
 
     $scope.mostrarOpciones = function (usuarioDTO) {
-        console.log($rootScope.loggedUser.Correo)
         if ($rootScope.loggedUser!= null && $rootScope.loggedUser.Correo == usuarioDTO.Correo) {
             return false;
         }
