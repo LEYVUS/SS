@@ -31,6 +31,13 @@ namespace SS.Servicios
             usuarioRepositorio = new UsuarioRepositorioImpl(new EntidadesSS());
         }
 
+
+        public void TerminarSolicitud(int id)
+        {
+            Solicitud solicitud = solicitudRepositorio.BuscarPorId(id);
+            solicitud.Id_Estado = (int)EstadoEnum.Terminado;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -405,7 +412,7 @@ namespace SS.Servicios
             doc.Add(Chunk.NEWLINE);
             Font CuerpoFont = new Font(iTextSharp.text.Font.FontFamily.TIMES_ROMAN, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
             Paragraph Cuerpo = new Paragraph("                               " +
-                "Por medio del presente la subdirección a mi" +
+                "Por medio del presente la subdirección a mi " +
                 "cargo comisiona a usted los dias " + solicitud.Evento.Fecha_Hora_Salida.Day + " y " +
                 solicitud.Evento.Fecha_Hora_Regreso.Day + " de " + mesSalida + " del año en curso, " +
                 "a la ciudad de " + solicitud .Evento.Lugar + ".", CuerpoFont);
@@ -421,7 +428,7 @@ namespace SS.Servicios
             doc.Add(Chunk.NEWLINE);
             doc.Add(Chunk.NEWLINE);
 
-            Paragraph Despedida = new Paragraph("En espera  que reciba de conformidad, me despido de usted" +
+            Paragraph Despedida = new Paragraph("En espera  que reciba de conformidad, me despido de usted " +
                 "con un cordial saludo.", CuerpoFont);
             Despedida.Alignment = Element.ALIGN_LEFT;
             doc.Add(Despedida);

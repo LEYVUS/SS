@@ -18,5 +18,15 @@ namespace SS.Controllers
             byte[] stream = solicitudServicio.CrearPDF(id);
             return File(stream, "application/octet-stream", "OficioComision.pdf");
         }
+
+        [Authorize]
+        [HttpPost]
+        public void Upload(HttpPostedFileWrapper file)
+        {
+            string name = file.FileName;
+            string path = Server.MapPath("~/UploadedFiles/");
+            file.SaveAs(path + Guid.NewGuid() + "." + "pdf");
+       //     solicitudServicio.TerminarSolicitud(id);
+        }
     }
 }

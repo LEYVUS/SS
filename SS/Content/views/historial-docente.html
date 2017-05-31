@@ -44,21 +44,24 @@
                             <th style="text-align:center;">Subir Reporte</th>
                         </tr>    
                     <tbody>
-                        <tr ng-repeat="solicitudDTO in solicitudes">
-                            <td style="text-align:center;">{{solicitudDTO.Id}}</td>
-                            <td style="text-align:center;">{{solicitudDTO.Evento.Nombre}}</td>
-                            <td style="text-align:center;">{{solicitudDTO.Evento.Lugar}}</td>
-                            <td style="text-align:center;">{{solicitudDTO.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
-                            <td style="text-align:center;">{{solicitudDTO.Evento.Fecha_Hora_Regreso  | date:'shortDate'}}</td>
-                            <td style="text-align:center;">{{solicitudDTO.Estado.Tipo}}</td>
-                            <td style="text-align:center;"><div class="image-upload">
-                        <div class="image-upload">
-                        <label for="file-input">
-                            <i class="glyphicon glyphicon-open-file" aria-hidden="true"></i>
-                        </label>
-                            <input id="file-input" type="file"/>
-                        </div>
-                        </div></td>
+                        <tr ng-repeat="solicitud in solicitudes">
+                            <td style="text-align:center;">{{solicitud.Id}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Nombre}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Lugar}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Fecha_Hora_Regreso  | date:'shortDate'}}</td>
+                            <td style="text-align:center;">{{solicitud.Estado.Tipo}}</td>
+                            <td style="text-align:center;">
+                                <div  class="image-upload" ng-init="solicitudDTO = solicitud">
+                                    <div class="image-upload">
+                                        <label for="file-input">
+                                            <i class="glyphicon glyphicon-open-file" aria-hidden="true"></i>
+                                        </label>
+                                            <input id="file-input" name="file" onchange="angular.element(this).scope().fileUpload(this.files)"
+                                                   accept="application/pdf"  type="file"/>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                     </table>

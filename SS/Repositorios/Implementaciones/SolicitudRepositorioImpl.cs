@@ -44,6 +44,32 @@ namespace SS.Repositorios.Implementaciones
             return solicitudes;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filtro"></param>
+        /// <returns></returns>
+        public List<Solicitud> BuscarSolicitudPorEstadoReporte()
+        {
+            EntidadesSS context = new EntidadesSS();
+            List<Solicitud> solicitudes;
+            var solicitud = from s in context.Solicituds
+                            join e in context.Estadoes
+                               on s.Id_Estado equals e.Id
+                            where s.Id_Estado == (int)EstadoEnum.Reporte
+                            select s;
+            try
+            {
+                solicitudes = solicitud.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return solicitudes;
+        }
+
 
 
         /// <summary>

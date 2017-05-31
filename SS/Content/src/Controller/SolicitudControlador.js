@@ -50,7 +50,25 @@
              }
         );
     };
+    $scope.fileUpload = function (files) {
+        var fd = new FormData();
+        fd.append("file", files[0]);
+        $http.post(servicioURL + "OficioComision/Upload" , fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined,
+            'Authorization': 'Bearer ' + tokenServicio.getUsuario()}
+        }).then(
+            function (respuestaExito) {
+               // mostrarModal(respuestaExito.data.Respuesta.Mensaje);
+            },
+            function (respuestaError) {
+                //$rootScope.loggedUser = null;
+                //$location.path('/login');
+                //tokenServicio.logOut();
+            }
+       );
 
+    }
     $scope.aceptarTotalmente = function (id) {
 
         $http({
