@@ -40,6 +40,8 @@ $RECYCLE.BIN/
 .VolumeIcon.icns
 .vs/
 packages/
+SS/obj/Debug/
+SS/bin
 
 # Directories potentially created on remote AFP share
 .AppleDB
