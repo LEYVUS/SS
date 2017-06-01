@@ -1,0 +1,167 @@
+﻿<div ng-controller="solicitudCtrl" ng-init="mostrarSolicitud()">
+    <div class="container" />
+    <div myheader></div>
+    <div class="row">
+        <div style="margin-left:40px; margin-right:20px; width:700px" mymenu></div>
+        <form name="solicitud">
+            <div class="col-lg-offset-1 col-sm-8 col-md-8 col-lg-8" name="myForm">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" name="Nombre" class="form-control" ng-model="solicitudDTO.Nombre_Solicitante" ng-init="solicitudDTO.Nombre_Solicitante = loggedUser.Nombre" required readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="numero">N&uacute;mero de empleado</label>
+                            <input type="number" name="Numero" class="form-control" ng-model="solicitudDTO.Numero_Empleado" ng-init="solicitudDTO.Numero_Empleado = loggedUser.Id" required readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label for="nombre-evento">Nombre del evento:</label>
+                        <input type="text" name="eventoNombre" ng-model="solicitudDTO.Evento.Nombre" class="form-control" required readonly>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label for="costo-evento">Lugar del evento:</label>
+                        <input type="text" name="eventoLugar" ng-model="solicitudDTO.Evento.Lugar" class="form-control" required readonly>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label for="costo-evento">Costo del evento:</label>
+                        <input type="number" ng-model="solicitudDTO.Evento.Costo" class="form-control" min="0" placeholder="$" readonly required>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 col-md-6">
+                        <div class="dropdown">
+                            <label for="carrera">Carrera</label>
+                            <br>
+                            <input type="text" ng-model="solicitudDTO.Carrera.Nombre" class="form-control" min="0" placeholder="$" readonly required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="dropdown">
+                            <label for="categoria">Categor&iacute;a</label>
+                            <br>
+                            <input type="text" ng-model="solicitudDTO.Categoria.Nombre" class="form-control" min="0" placeholder="$" readonly required>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:50px;"></div>
+                <div class="row">
+                    <div class="col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label for="fecha">Fecha de salida</label><br />
+                            <input type="date" name="fechaRegreso" ng-model="fechaSalida" class="form-control" required readonly>
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label for="fecha">Fecha de llegada</label>
+                            <input type="date" name="fechaLlegada" ng-model="fechaRegreso" class="form-control" required readonly>
+                        </div>
+                    </div>
+
+                </div>
+
+        </form>
+        <div style="margin-bottom:50px;"></div>
+
+        <label>Recursos a solicitar</label>
+        <div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Recurso_Solicitado.Hospedaje" ng-init="solicitudDTO.Recurso_Solicitado.Hospedaje = false" readonly required>Hospedaje
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Recurso_Solicitado.Viatico" ng-init="solicitudDTO.Recurso_Solicitado.Viatico = false" readonly required>V&iacute;aticos
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Recurso_Solicitado.Oficio_Comision" ng-init="solicitudDTO.Recurso_Solicitado.Oficio_Comision = false" readonly required>Oficios de comisi&oacute;n
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="otroRecurso" readonly required>Otro
+                    </label>
+                    <br>
+                    <label for="correo">Descripción otra:</label>
+                    <br>
+                    <input type="text" class="form-control" ng-model="solicitudDTO.Recurso_Solicitado.Otro" ng-disabled="!otroRecurso" placeholder="Otros ..." readonly required>
+                    <br>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+                        <label for="transporte">Trasporte</label>
+                        <input type="number" name="transporte" min="0" ng-model="solicitudDTO.Recurso_Solicitado.Transporte" class="form-control" placeholder="Cantidad de personas ..." readonly required>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Recurso_Solicitado.Combustible" ng-init="solicitudDTO.Recurso_Solicitado.Combustible = false" readonly required>Combustible
+                        </label>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <label>Actividades asociadas</label>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Actividad.CACEI" ng-init="solicitudDTO.Actividad.CACEI = false" readonly required>CACEI/CIEES
+                </label>
+                <br>
+                <br>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Actividad.Licenciatura" ng-init="solicitudDTO.Actividad.Licenciatura = false" readonly required>Licenciatura
+                </label>
+                <br>
+                <br>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Actividad.Personal" ng-init="solicitudDTO.Actividad.Personal = false" readonly required>Personal
+                </label>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Actividad.ISO" ng-init="solicitudDTO.Actividad.ISO = false" readonly required>ISO 9001:2008
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="solicitudDTO.Actividad.Posgrado" ng-init="solicitudDTO.Actividad.Posgrado = false" readonly required>Posgrado
+                    </label>
+                    <br>
+                    <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="true" ng-disabled="true" ng-model="otraActividad" readonly required>Otro
+                    </label>
+                    <br>
+                    <label for="correo">Descripci&oacute;n otra:</label>
+                    <br>
+                    <input class="form-control" ng-model="solicitudDTO.Actividad.Otro" ng-disabled="!otraActividad" placeholder="Otros ..." readonly required>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:150px;" myfooter></div>
+</div>

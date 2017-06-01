@@ -1,0 +1,43 @@
+<div class="container">
+    <div myheader></div>
+    <h2 class="text-center">Bienvenido al Sistema de Solicitudes de Salida</h2>
+    <div>
+        <!--Formulario para iniciar sesión-->
+        <div class="container" id="login">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Iniciar sesi&oacute;n:</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form  name="myForm">
+                                <div ></div>
+                              
+                                    <div class="form-group">
+                                        <label>Correo:</label>
+                                        <input  class="form-control" placeholder="Correo" name="correo" type="email"  ng-model="usuarioDTO.Correo" ng-pattern="regex.correo" required>
+                                        <div ng-show="!myForm.correo.$valid" role="alert">
+                                            <div class="alert alert-danger" ng-show="myForm.correo.$touched && myForm.correo.$error.required" ng-message="myForm.correo.$error.required">Este campo es obligatorio</div>
+                                            <div class="alert alert-danger" ng-show="myForm.correo.$touched && myForm.correo.$error.pattern" ng-message="myForm.correo.$error.pattern">Este correo no pertenece a UABC</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña:</label>
+                                        <input class="form-control" placeholder="Contraseña" name="pswd" type="password" ng-model="usuarioDTO.Contrasenia" required>
+                                        <div ng-show="!myForm.pswd.$valid" role="alert">
+                                            <div class="alert alert-danger" ng-show="myForm.pswd.$touched && myForm.pswd.$error.required" ng-message="myForm.correo.$error.required">Este campo es obligatorio</div>
+                                        </div>
+                                    </div>
+                                    <input type="submit" ng-keypress="" value="Ingresar" class="btn btn-success btn-block" ng-disabled="!myForm.$valid" ng-click="IniciarSesion()">
+                             
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <div myfooter></div>
+</div>

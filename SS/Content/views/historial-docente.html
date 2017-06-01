@@ -1,0 +1,75 @@
+<div ng-controller="solicitudCtrl" ng-init="obtenerSolicitudesCorreo(loggedUser,cantidadPaginador)">
+    <div class="container">
+        <div myheader></div>
+        <div class="row">
+            <div mymenu></div>
+            <div style="margin-left:390px; height:150px; width:780px;">
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label for="ex1">Folio</label>
+                        <input ng-model="Filtro.Folio" class="form-control" id="ex1" type="number">
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex2">Nombre Solicitud</label>
+                        <input ng-model="Filtro.Nombre" class="form-control" id="ex2" ng-init="Filtro.Nombre = ''" type="text">
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="ex3">Carrera</label><br />
+                        <select name="carrera" ng-model="Filtro.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera"></select>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <button style="margin-left:15px;" type="button" class="btn btn-warning" ng-click="obtenerSolicitudesCorreo(loggedUser,cantidadPaginador)">Aplicar Filtros</button>
+                </div>
+            </div>
+            <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
+                <ul class="pagination">
+                    <li><a href="" ng-click="obtenerSolicitudesCorreo(loggedUser,10)">&laquo;</a></li>
+                    <li ng-repeat="page in pages">
+                        <a href="" ng-click="obtenerSolicitudesCorreo(loggedUser,cantidadPaginador * page.no)">{{page.no}}</a>
+                    </li>
+                    <li><a ng-click="obtenerSolicitudesCorreo(loggedUser,(cantidadPaginador = 10) *pages.length )">&raquo;</a></li>
+                </ul>
+                <h3>Historial de Solicitudes</h3>
+                <table class="table  table-striped" id="cssTable">
+                    <tr>
+                        <th style="text-align:center;">Folio</th>
+                        <th style="text-align:center;">Nombre de la solicitud</th>
+                        <th style="text-align:center;">Lugar de la solicitud</th>
+                        <th style="text-align:center;">Fecha de salida</th>
+                        <th style="text-align:center;">Fecha de regreso</th>
+                        <th style="text-align:center;">Estado</th>
+                        <th style="text-align:center;">Subir Reporte</th>
+                    </tr>
+                    <tbody>
+                        <tr ng-repeat="solicitud in solicitudes">
+                            <td style="text-align:center;">{{solicitud.Id}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Nombre}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Lugar}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Fecha_Hora_Salida  | date:'shortDate'}}</td>
+                            <td style="text-align:center;">{{solicitud.Evento.Fecha_Hora_Regreso  | date:'shortDate'}}</td>
+                            <td style="text-align:center;">{{solicitud.Estado.Tipo}}</td>
+                            <td style="text-align:center;">
+                                <div class="image-upload" ng-init="solicitudDTO = solicitud">
+                                    <div class="image-upload">
+                                        <label for="file-input">
+                                            <i class="glyphicon glyphicon-open-file" aria-hidden="true"></i>
+                                        </label>
+                                        <input id="file-input" name="file" onchange="angular.element(this).scope().fileUpload(this.files)"
+                                               accept="application/pdf" type="file" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+           
+        </div>
+    </div>
+    <div style="margin-left:160px;" myfooter></div>
+</div>
+

@@ -1,0 +1,60 @@
+<div ng-controller="usuarioCtrl" ng-init="listarUsuarios()">
+    <div class="container">
+        <div myheader></div>
+        <div class="row">
+            <div mymenu></div>
+            <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-6 col-lg-8">
+            <table style="width:700px; "class="table table-striped">
+                    <thead>
+
+                    <th style="width:300px; text-align:center" class="sort-click" ng-click = "ordenamiento('Correo')">Correo electrónico</th>
+                    <th style="width:200px; text-align:center" class="sort-click" ng-click = "ordenamiento('Rol.Nombre')">Rol</th>
+                    <th style="width:200px; text-align:center" class="sort-click" ng-click = "ordenamiento('Rol.Descripcion')">Descripción</th>
+                    <th style="width:150px; text-align:center" >Editar</th>
+                    </thead>
+                    <thead>
+
+                    
+                    <th></th>
+                    <th>
+                        <div class="dropdown">
+                            <button style="width:150px; " class="btn btn-success dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                {{FiltroR}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li  style="width:150px;" ng-show="FiltroR != 'Todo'"          ng-click="FiltroR = 'Todo'"><a  href="">Todo</a></li>
+                                <li  style="width:150px;" ng-show="FiltroR != 'Académico'"     ng-click="FiltroR = 'Académico'" ><a href="">Acad&eacutemico</a></li>
+                                <li style="width:150px;"  ng-show="FiltroR != 'Administrador'" ng-click="FiltroR = 'Administrador'"><a href="">Administrador</a></li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>   
+                        <div class="dropdown">
+                            <button style="width:150px; " class="btn btn-success dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                {{FiltroD}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li ng-show="FiltroD != 'Todo'" ng-click="FiltroD = 'Todo'"><a href="">Todo</a></li>
+                                <li ng-show="FiltroD != 'Coordinador'" ng-click="FiltroD = 'Coordinador'"><a href="">Coordinador</a></li>
+                        </div>
+                    </th>
+                    <th></th>
+                    </thead>
+                
+                    <tbody>
+                        <tr ng-repeat="usuarioDTO in usuarios | nombre :FiltroR | descripcion :FiltroD ">
+             
+                            <td style="width:300px; text-align:center">{{usuarioDTO.Correo}}</td>
+                            <td style="width:200px; text-align:center">{{usuarioDTO.Rol.Nombre}}</td>
+                            <td style="width:200px; text-align:center">{{usuarioDTO.Rol.Descripcion}}</td>
+                            <td style="width:200px; text-align:center"><button ng-show="mostrarOpciones(usuarioDTO)" type="button" class="btn btn-primary btn-xs glyphicon glyphicon-edit" ng-click="buscarUsuario(usuarioDTO.Id,usuarioDTO.Rol.Descripcion)"></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer-listar" myfooter></div>
+</div>
