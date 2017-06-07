@@ -1,4 +1,4 @@
-﻿
+﻿//<add name="EntidadesFIAD" connectionString="data source=usuariosfiad.database.windows.net;initial catalog=UsuariosFIAD;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
 using SS.Models.Entidades.UABC;
 using SS.Repositorios.Interfaces;
 using System;

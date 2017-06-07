@@ -1,0 +1,1 @@
+appController = angular.module('app.controllers', ['angularModalService', 'LocalStorageModule'])

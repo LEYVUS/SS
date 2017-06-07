@@ -1,0 +1,21 @@
+﻿
+<div class="modal fade" id="mensaje" data-backdrop="static" data-keyboard="false" >
+    <div class = "hide-close modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--Header de la ventana-->
+                <button type="button" class="close" data-dismiss="modal" ng-click="activarModal()"aria-hidden="true">&times;</button>
+                <h3 class="modal-title">ADVERTENCIA</h3>
+            </div>
+            <div class="modal-body">
+                <!--Contenido de la ventana-->
+                <h4>{{message}}</h4>
+            </div>
+            <div class="modal-footer">
+                <!--Footer de la ventana-->
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="close('N')">Aceptar</button>
+
+            </div>
+        </div>
+    </div>
+</div>

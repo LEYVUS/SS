@@ -30,7 +30,7 @@ namespace SS.Jobs
             CorreoComponente correo = new CorreoComponente(subdirectorCredenciales.Email,subdirectorCredenciales.Contraseña);
             foreach(Solicitud s in solicitudes)
             {
-                correo.MandarCorreo("Sistema de solicitud de salida.Falta subir reporte", "REPORTE", "daniel.ballesteros@uabc.edu.mx");
+                correo.MandarCorreo("Sistema de solicitud de salida.Falta subir reporte", "REPORTE", s.Correo_Solicitante);
             }
            
         }

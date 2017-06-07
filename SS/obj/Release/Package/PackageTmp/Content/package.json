@@ -1,0 +1,18 @@
+{
+  "name": "SS",
+  "version": "1.0.0",
+  "description": "FRONT-END",
+  "author": "Eduardo Escalona",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-local-storage": "0.5.2",
+    "angular-modal-service": "^0.11.1",
+    "angular-route": "1.6.4",
+    "angular-ui--bootstrap": "1.0.0",
+    "bootstrap": "3.3.7",
+    "jquery": "3.2.1"
+  }
+}
+

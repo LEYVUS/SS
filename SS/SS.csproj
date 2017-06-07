@@ -176,6 +176,7 @@
     <Content Include="Content\src\app-controller.js" />
     <Content Include="Content\src\app.js" />
     <Content Include="Content\src\Constant\ServicioURL.js" />
+    <Content Include="Content\src\Controller\AyudaControlador.js" />
     <Content Include="Content\src\Controller\LoginControlador.js" />
     <Content Include="Content\src\Controller\NotificacionControlador.js" />
     <Content Include="Content\src\Controller\SolicitudControlador.js" />
@@ -185,6 +186,7 @@
     <Content Include="Content\src\Filter\FiltroUsuario.js" />
     <Content Include="Content\src\Service\LoginServicio.js" />
     <Content Include="Content\src\Service\TokenServicio.js" />
+    <Content Include="Content\views\ayuda.html" />
     <Content Include="Content\views\borrar.html" />
     <Content Include="Content\views\editar.html" />
     <Content Include="Content\views\editarNotificacion.html" />
@@ -305,6 +307,7 @@
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\SistemaSalidas - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="EntidadesUABC-Web.config Connection String" description="EntidadesUABC Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="data source=tcp:solicitudsalidas.database.windows.net,1433;Initial Catalog=UsuariosUABC;Persist Security Info=False;User ID=ss;Password=SolicitudSalidas1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Cabrera-casa\\Documents\\UABC\\SS-master\\SS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='EntidadesUABC']/@connectionString" />
+  </parameter>
+  <parameter name="EntidadesFIAD-Web.config Connection String" description="EntidadesFIAD Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="data source=tcp:usuariosfiad.database.windows.net,1433;Initial Catalog=UsuariosFIAD;Persist Security Info=False;User ID=ss;Password=UsuariosFIAD1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Cabrera-casa\\Documents\\UABC\\SS-master\\SS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='EntidadesFIAD']/@connectionString" />
+  </parameter>
+  <parameter name="EntidadesSS-Web.config Connection String" description="EntidadesSS Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="data source=tcp:dbsistemasolicitud.database.windows.net,1433;Initial Catalog=dbSS;Persist Security Info=False;User ID=ss;Password=SistemaSolicitud1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;App=EntityFramework" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Cabrera-casa\\Documents\\UABC\\SS-master\\SS\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='EntidadesSS']/@connectionString" />
+  </parameter>
+</parameters>

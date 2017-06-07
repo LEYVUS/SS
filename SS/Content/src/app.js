@@ -1,5 +1,5 @@
 var app = angular.module("app", ['ngRoute', 'app.controllers', 'LocalStorageModule']);
-app.config(function ($routeProvider, localStorageServiceProvider) {
+app.config(['$routeProvider', 'localStorageServiceProvider', function ($routeProvider, localStorageServiceProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '../Content/views/login.html',
@@ -47,16 +47,20 @@ app.config(function ($routeProvider, localStorageServiceProvider) {
         .when('/SS/Solicitud/Editar/:id', {
             templateUrl: '../Content/views/editarNotificacion.html',
             controller: "usuarioCtrl"
-         })
+        })
+        .when('/SS/Ayuda', {
+            templateUrl: '../Content/views/ayuda.html',
+            controller: "notificacionCtrl"
+        })
         .otherwise({
             redirectTo: '/login'
         })
     localStorageServiceProvider
   .setPrefix('SS');
 
-});
+}]);
 
-app.run(function ($rootScope, $location, localStorageService) {
+app.run(['$rootScope', '$location', 'localStorageService', function ($rootScope, $location, localStorageService) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
          $rootScope.loggedUser = localStorageService.get('user');
      
@@ -88,5 +92,5 @@ app.run(function ($rootScope, $location, localStorageService) {
             } 
         }
     });
-})
+}])
 

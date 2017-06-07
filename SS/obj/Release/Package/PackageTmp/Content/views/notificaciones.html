@@ -1,0 +1,71 @@
+﻿<div ng-controller="notificacionCtrl" ng-init="notificacionesListar(loggedUser,cantidadPaginador)">
+    <div class="container">
+        <div myheader></div>
+        <div class="row">
+            <div mymenu></div>
+
+            <div style="margin-left:390px; height:150px; width:780px;" >
+                <div class="form-group row">
+                    <div class="col-xs-2">
+                        <label for="ex1">Folio</label>
+                        <input ng-model="Filtro.Folio" class="form-control" id="ex1" type="number">
+                    </div>
+               
+                    <div class="col-xs-3">
+                        <label for="ex2">Nombre Solicitud</label>
+                        <input ng-model="Filtro.Nombre" class="form-control" id="ex2" ng-init = "Filtro.Nombre = ''" type="text">
+                    </div>
+                    
+                    <div class="col-xs-3">
+                        <label for="ex3">Carrera</label><br />
+                        <select name="carrera" ng-model="Filtro.Carrera" ng-options="carrera.Nombre for carrera in carreras" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" placeholder="Elegir Carrera" ></select>
+                    </div>
+                    <br/>
+                    <br />
+                    <br />
+                    <br />
+                    <button style="margin-left:15px;" type="button" class="btn btn-warning" ng-click="notificacionesListar(loggedUser,cantidadPaginador)">Aplicar Filtros</button>
+                </div>
+              
+            </div>
+
+
+            <div style="margin-left:280px;width:1200px; margin-right:0px;">
+                <div class="col-md-offset-1 col-lg-offset-1 col-sm-8 col-md-8 col-lg-8">
+                    <ul class="pagination">
+                        <li><a href="" ng-click="notificacionesListar(loggedUser,10)">&laquo;</a></li>
+                        <li ng-repeat="page in pages">
+                            <a href="" ng-click="notificacionesListar(loggedUser,cantidadPaginador * page.no)">{{page.no}}</a>
+                        </li>
+                        <li><a ng-click="notificacionesListar(loggedUser,(cantidadPaginador = 10) *pages.length )">&raquo;</a></li>
+                    </ul>
+                    <h3>Notificaciones</h3>
+                    <ul class="nav nav-tabs">
+                        <li class="active" ng-show="loggedUser.Rol != null"><a ng-click="redireccionar('/SS/Notificacion')"  href="">{{loggedUser.Rol.Descripcion}}</a></li>
+                        <li><a href="" ng-click="redireccionar('/SS/Notificacion/Docente')">Docente</a></li>
+                    </ul>
+                    <table class="table table-striped">
+                        <tr>
+                            <th style="width:80px; text-align:center">Folio</th>
+                            <th style="width:300px; text-align:center">Nombre de la Solicitud</th>
+                            <th style="width:200px; text-align:center">Carrera</th>
+                            <th style="width:200px; text-align:center">Nombre Solicitante</th>
+                            <th style="width:400px; text-align:center">Fecha de Salida</th>
+                            <th style="width:100px; text-align:center">Revisar</th>
+                        </tr>
+                        <tr ng-repeat="notificacion in notificaciones">
+                            <td style="width:80px; text-align:center">{{notificacion.Id}}</td>
+                            <td style="width:300px; text-align:center">{{notificacion.Evento.Nombre}}</td>
+                            <td style="width:200px; text-align:center">{{notificacion.Carrera.Nombre}}</td>
+                            <td style="width:200px; text-align:center">{{notificacion.Nombre_Solicitante}}</td>
+                            <td style="width:400px; text-align:center">{{notificacion.Evento.Fecha_Hora_Salida | date:'shortDate'}}</td>
+                            <td style="width:100px; text-align:center" ><button class="btn btn-primary btn-xs glyphicon glyphicon-eye-open" ng-click="redireccionar('/SS/Solicitud/' + notificacion.Id)"></button></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:190px;" myfooter></div>
+</div>
